@@ -1,0 +1,217 @@
+name: WarpStream FinOps Framework
+description: >
+  WarpStream's FinOps profile covers consumption-based cost management for its diskless
+  Kafka-compatible streaming platform. Costs are driven by cluster uptime (cluster-minutes),
+  uncompressed data written, and uncompressed data stored, all metered monthly in 15-minute
+  intervals. The platform's scale-to-zero capability means idle clusters are free. WarpStream
+  provides a Usage tab in the Billing screen of the console for consumption monitoring and
+  cost allocation across workspaces and virtual clusters.
+specificationVersion: "1.0"
+url: https://www.warpstream.com/pricing
+focus:
+  version: "1.0"
+  provider: WarpStream
+  serviceCategory: Data Streaming / Event Streaming
+  deploymentModel:
+    - Serverless (Hosted)
+    - BYOC (Bring Your Own Cloud)
+  cloudProviders:
+    - AWS
+    - GCP
+    - Azure
+
+costDimensions:
+  - name: Cluster Minutes
+    description: >
+      Metered in 15-minute intervals only when at least one agent is deployed. Idle
+      clusters with no active agents incur no cluster-minute charges. The per-15-minute
+      rate depends on the selected cluster tier.
+    unit: 15-minute interval
+    billingModel: consumption
+    tiers:
+      - tier: Dev
+        unitPrice: 0.0345
+        currency: USD
+      - tier: Fundamentals
+        unitPrice: 0.1725
+        currency: USD
+      - tier: Pro
+        unitPrice: 0.52083
+        currency: USD
+      - tier: Schema Registry (add-on)
+        unitPrice: 0.34722
+        currency: USD
+
+  - name: Uncompressed GiB Written
+    description: >
+      Logical (uncompressed) data written to the cluster. Tiered pricing rewards higher
+      write volumes with lower unit costs. For multi-region deployments, this metric is
+      multiplied by the number of regions (2-3x).
+    unit: GiB
+    billingModel: tiered-consumption
+    tiers:
+      - range: "0-50 TiB/month"
+        unitPrice: 0.01
+        currency: USD
+      - range: "50-300 TiB/month"
+        unitPrice: 0.0075
+        currency: USD
+      - range: "300-1,550 TiB/month"
+        unitPrice: 0.0055
+        currency: USD
+      - range: "1,550-7,800 TiB/month"
+        unitPrice: 0.004
+        currency: USD
+      - range: "above 7,800 TiB/month"
+        unitPrice: 0.003
+        currency: USD
+
+  - name: Uncompressed GiB Stored
+    description: >
+      Logical (uncompressed) data retained in the cluster at rest. Storage is backed by
+      the customer's object storage (S3, GCS, Azure Blob). Tiered pricing applies monthly.
+      For multi-region deployments, this metric is multiplied by the number of regions.
+    unit: GiB
+    billingModel: tiered-consumption
+    tiers:
+      - range: "0-50 TiB/month"
+        unitPrice: 0.01
+        currency: USD
+      - range: "50-300 TiB/month"
+        unitPrice: 0.0085
+        currency: USD
+      - range: "300-800 TiB/month"
+        unitPrice: 0.0075
+        currency: USD
+      - range: "800-1,800 TiB/month"
+        unitPrice: 0.006
+        currency: USD
+      - range: "above 1,800 TiB/month"
+        unitPrice: 0.004
+        currency: USD
+
+  - name: Serverless Cluster Network Ingress
+    description: >
+      For hosted Serverless clusters (not BYOC), compressed GiB written is an additional
+      network ingress billing dimension.
+    unit: GiB (compressed)
+    billingModel: consumption
+    appliesTo: Serverless clusters only
+
+  - name: Serverless Cluster Network Egress
+    description: >
+      For hosted Serverless clusters (not BYOC), compressed GiB read is an additional
+      network egress billing dimension.
+    unit: GiB (compressed)
+    billingModel: consumption
+    appliesTo: Serverless clusters only
+
+  - name: Tableflow Write Throughput
+    description: >
+      Additional write throughput cost for data streamed into Apache Iceberg tables via
+      Tableflow. Tiered pricing with volume discounts.
+    unit: GiB
+    billingModel: tiered-consumption
+    tiers:
+      - range: "0-50 TiB/month"
+        unitPrice: 0.04
+        currency: USD
+      - range: "50-300 TiB/month"
+        unitPrice: 0.03
+        currency: USD
+      - range: "300-1,550 TiB/month"
+        unitPrice: 0.022
+        currency: USD
+      - range: "1,550-7,800 TiB/month"
+        unitPrice: 0.016
+        currency: USD
+      - range: "above 7,800 TiB/month"
+        unitPrice: 0.012
+        currency: USD
+
+  - name: Tableflow Storage
+    description: >
+      Storage cost for Iceberg table data managed via Tableflow. Tiered pricing applies.
+    unit: GiB
+    billingModel: tiered-consumption
+    tiers:
+      - range: "0-50 TiB/month"
+        unitPrice: 0.01
+        currency: USD
+      - range: "50-300 TiB/month"
+        unitPrice: 0.0085
+        currency: USD
+      - range: "300-800 TiB/month"
+        unitPrice: 0.0075
+        currency: USD
+      - range: "800-1,800 TiB/month"
+        unitPrice: 0.006
+        currency: USD
+      - range: "above 1,800 TiB/month"
+        unitPrice: 0.004
+        currency: USD
+
+costOptimization:
+  - name: Scale-to-Zero
+    description: >
+      Idle clusters with no active agents incur no cluster-minute charges. Decommissioning
+      agents when not in use eliminates compute costs entirely for development and low-traffic
+      environments.
+    impact: high
+
+  - name: Tiered Volume Discounts
+    description: >
+      All write and storage metrics use tiered pricing where higher volumes result in lower
+      per-GiB unit costs. Aggregating workloads into fewer clusters can help reach lower-cost
+      tiers faster.
+    impact: medium
+
+  - name: BYOC vs Serverless Selection
+    description: >
+      BYOC deployments avoid per-network-byte charges on ingress and egress. Serverless
+      clusters add compressed GiB written and read metrics. For high-throughput workloads,
+      BYOC is typically more cost-efficient.
+    impact: high
+
+  - name: Multi-Region Cost Awareness
+    description: >
+      Multi-region clusters multiply write and storage metrics by 2-3x. Teams should
+      evaluate whether multi-region SLAs justify the additional cost before enabling.
+    impact: medium
+
+  - name: Object Storage Cost
+    description: >
+      BYOC clusters stream data directly to and from customer-owned object storage (S3,
+      GCS, Azure Blob). Object storage costs (API calls, storage) are billed separately
+      by the cloud provider and should be included in total cost of ownership calculations.
+    impact: medium
+
+costVisibility:
+  - name: Console Usage Tab
+    description: >
+      The Billing screen in the WarpStream console includes a Usage tab showing real-time
+      consumption breakdowns by billing dimension across workspaces and virtual clusters.
+    url: https://console.warpstream.com/
+
+  - name: Cost Estimator
+    description: >
+      WarpStream provides an interactive cost estimator for projecting monthly spend based
+      on expected throughput, storage, and cluster tier selection.
+    url: https://console.warpstream.com/cost_estimator
+
+  - name: Free Credits
+    description: >
+      New accounts receive $400 in non-expiring free credits automatically, with no credit
+      card required. Credits apply to all billing dimensions.
+    amount: 400.00
+    currency: USD
+    expiry: non-expiring
+
+  - name: AWS Marketplace Billing
+    description: >
+      WarpStream is available through AWS Marketplace, enabling consolidated billing via
+      AWS accounts and potential use of AWS Enterprise Discount Program (EDP) credits.
+    url: https://aws.amazon.com/marketplace/pp/prodview-aciq4fyplkpgy
+
+billingCycle: monthly
+billingModel: arrears

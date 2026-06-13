@@ -1,0 +1,99 @@
+name: WarpStream Rate Limits
+description: >
+  WarpStream's rate limits apply primarily at the cluster tier level, with partition counts,
+  throughput capacity, and agent scaling determined by the selected cluster tier. The management
+  REST API uses POST requests with JSON payloads authenticated via the warpstream-api-key header.
+  Specific API rate limits for the control plane are not publicly documented; throughput and
+  capacity limits are governed by cluster tier and object storage backend performance.
+specificationVersion: "0.1"
+url: https://docs.warpstream.com/warpstream/reference/api-reference
+rateLimits:
+  - name: Dev Cluster Partition Limit
+    description: >
+      The Dev cluster tier supports a maximum of 4,096 partitions across all topics in
+      the virtual cluster.
+    scope: cluster
+    tier: Dev
+    limit: 4096
+    limitUnit: partitions
+    type: hard
+
+  - name: Fundamentals Cluster Partition Limit
+    description: >
+      The Fundamentals cluster tier supports a maximum of 16,384 partitions across all
+      topics in the virtual cluster.
+    scope: cluster
+    tier: Fundamentals
+    limit: 16384
+    limitUnit: partitions
+    type: hard
+
+  - name: Pro Cluster Partition Limit
+    description: >
+      The Pro cluster tier supports a maximum of 50,000 partitions across all topics in
+      the virtual cluster.
+    scope: cluster
+    tier: Pro
+    limit: 50000
+    limitUnit: partitions
+    type: hard
+
+  - name: Enterprise Cluster Partition Limit
+    description: >
+      The Enterprise cluster tier supports 200,000 or more partitions across all topics.
+      Exact limits are negotiated as part of enterprise contracts.
+    scope: cluster
+    tier: Enterprise
+    limit: 200000
+    limitUnit: partitions
+    type: soft
+
+  - name: Billing Interval Granularity
+    description: >
+      WarpStream meters cluster usage in 15-minute intervals. Clusters are only billed
+      when at least one agent is deployed; idle clusters with no agents incur no charges.
+    scope: account
+    limit: 15
+    limitUnit: minutes
+    type: billing-interval
+
+  - name: Management API Authentication
+    description: >
+      All management REST API requests must include a valid warpstream-api-key header.
+      Three key scopes exist: Account Keys (account-level resources), Application Keys
+      (workspace-level resources such as virtual clusters, topics, ACLs, pipelines),
+      and Agent Keys (virtual cluster-specific operations scoped to the associated cluster).
+    scope: api
+    type: authentication
+    authHeader: warpstream-api-key
+    keyTypes:
+      - name: Account Key
+        scope: Account-level resources (workspaces, users, roles, invitations)
+      - name: Application Key
+        scope: Workspace-level resources (virtual clusters, topics, ACLs, pipelines)
+      - name: Agent Key
+        scope: Virtual cluster-specific operations
+
+  - name: Management API Request Method
+    description: >
+      All WarpStream management API requests must be issued as HTTP POST requests with
+      JSON payloads. The API does not support GET, PUT, PATCH, or DELETE methods for
+      management operations.
+    scope: api
+    type: protocol
+    method: POST
+    contentType: application/json
+
+  - name: Multi-Region Data Multiplier
+    description: >
+      For multi-region deployments, data written and stored metrics are multiplied by the
+      number of regions supported (typically 2-3x). Cluster minutes are not multiplied.
+      Volume discount tiers still apply to the aggregated total.
+    scope: cluster
+    type: usage-multiplier
+    multiplierRange: "2-3x"
+    appliesTo:
+      - Uncompressed GiB written
+      - Uncompressed GiB stored
+    doesNotApplyTo:
+      - Cluster minutes

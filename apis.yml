@@ -1,0 +1,76 @@
+aid: warpstream
+name: WarpStream
+description: >
+  WarpStream is a diskless, Apache Kafka-compatible data streaming platform built directly
+  on top of cloud object storage such as S3, GCP, and Azure. It eliminates the need for
+  local disks, brokers to rebalance, and ZooKeeper, delivering Kafka compatibility through
+  a single, stateless Go binary deployed as auto-scaling agents in customer VPCs. WarpStream
+  offers a REST management API for programmatically controlling workspaces, virtual clusters,
+  topics, ACLs, pipelines, agent pools, and BYOC deployments. The platform supports
+  Exactly Once Semantics, transactions, a built-in Schema Registry, and Tableflow for
+  streaming data into Iceberg tables, with pricing based purely on compute minutes and
+  uncompressed data written and stored.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/warpstream/refs/heads/main/apis.yml
+created: 2026-06-13
+modified: 2026-06-13
+specificationVersion: "0.19"
+tags:
+  - Kafka
+  - Streaming
+  - Serverless
+  - Object Storage
+  - BYOC
+  - Data Streaming
+  - Apache Kafka
+  - Message Queue
+  - Event Streaming
+apis:
+  - name: WarpStream Management API
+    description: >
+      REST API for programmatically managing all aspects of the WarpStream control plane,
+      including workspaces, virtual clusters, topics, ACLs, pipelines, agent pools, and
+      BYOC deployments. All requests are issued as POST requests with JSON payloads and
+      authenticated via the warpstream-api-key header using Application Keys, Agent Keys,
+      or Account Keys depending on the scope of resources being managed.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://docs.warpstream.com/warpstream/reference/api-reference
+    baseURL: https://api.warpstream.com
+    tags:
+      - Kafka
+      - Streaming
+      - Clusters
+      - Virtual Clusters
+      - Agent Pools
+      - BYOC
+      - Management
+    properties:
+      - type: Documentation
+        url: https://docs.warpstream.com/warpstream/reference/api-reference
+common:
+  - type: Website
+    url: https://www.warpstream.com/
+  - type: Documentation
+    url: https://docs.warpstream.com/warpstream
+  - type: GitHubOrg
+    url: https://github.com/warpstreamlabs
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/warpstream/
+  - type: Blog
+    url: https://www.warpstream.com/blog
+  - type: Pricing
+    url: https://www.warpstream.com/pricing
+  - type: StatusPage
+    url: https://status.warpstream.com/
+  - type: X
+    url: https://twitter.com/warpstream_labs
+  - type: Plans
+    url: plans/warpstream-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/warpstream-rate-limits.yml
+  - type: FinOps
+    url: finops/warpstream-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

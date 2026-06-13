@@ -1,0 +1,219 @@
+name: WarpStream Plans and Pricing
+description: >
+  WarpStream offers consumption-based pricing across four cluster tiers for BYOC deployments,
+  with usage metered in 15-minute intervals only when agents are active. All accounts receive
+  $400 in non-expiring free credits with no credit card required to start. There are no
+  per-agent, per-core, or per-partition fees. Idle clusters are free due to scale-to-zero
+  functionality.
+specificationVersion: "0.1"
+url: https://www.warpstream.com/pricing
+plans:
+  - name: Dev
+    description: >
+      Entry-level cluster tier for development and testing workloads. No uptime SLA.
+      Suitable for getting started and non-production evaluation.
+    url: https://www.warpstream.com/pricing
+    price: 100.00
+    priceCurrency: USD
+    billingCycle: monthly
+    features:
+      - Kafka-compatible streaming
+      - Up to 4,096 partitions
+      - No SLA
+      - Scale-to-zero (idle clusters free)
+      - $400 free credits for new accounts
+      - 15-minute billing intervals
+    usagePricing:
+      - metric: Cluster minutes (Dev)
+        price: 0.0345
+        priceCurrency: USD
+        per: 15 minutes
+      - metric: Uncompressed GiB written (first 50 TiB/month)
+        price: 0.01
+        priceCurrency: USD
+        per: GiB
+      - metric: Uncompressed GiB stored (first 50 TiB/month)
+        price: 0.01
+        priceCurrency: USD
+        per: GiB
+
+  - name: Fundamentals
+    description: >
+      Production-grade cluster tier with a 99.9% uptime SLA. Suitable for teams running
+      workloads that require reliability guarantees and higher partition limits.
+    url: https://www.warpstream.com/pricing
+    price: 500.00
+    priceCurrency: USD
+    billingCycle: monthly
+    features:
+      - Kafka-compatible streaming
+      - Up to 16,384 partitions
+      - 99.9% uptime SLA
+      - Scale-to-zero (idle clusters free)
+      - No per-agent or per-partition fees
+      - 15-minute billing intervals
+    usagePricing:
+      - metric: Cluster minutes (Fundamentals)
+        price: 0.1725
+        priceCurrency: USD
+        per: 15 minutes
+      - metric: Uncompressed GiB written (first 50 TiB/month)
+        price: 0.01
+        priceCurrency: USD
+        per: GiB
+      - metric: Uncompressed GiB written (next 250 TiB/month)
+        price: 0.0075
+        priceCurrency: USD
+        per: GiB
+      - metric: Uncompressed GiB stored (first 50 TiB/month)
+        price: 0.01
+        priceCurrency: USD
+        per: GiB
+      - metric: Uncompressed GiB stored (next 250 TiB/month)
+        price: 0.0085
+        priceCurrency: USD
+        per: GiB
+
+  - name: Pro
+    description: >
+      Advanced cluster tier with a 99.99% uptime SLA and support for up to 50,000 partitions.
+      Designed for high-throughput production use cases and multi-region deployments.
+    url: https://www.warpstream.com/pricing
+    price: 1500.00
+    priceCurrency: USD
+    billingCycle: monthly
+    features:
+      - Kafka-compatible streaming
+      - Up to 50,000 partitions
+      - 99.99% uptime SLA
+      - Multi-region cluster support
+      - Scale-to-zero (idle clusters free)
+      - No per-agent or per-partition fees
+      - 15-minute billing intervals
+    usagePricing:
+      - metric: Cluster minutes (Pro)
+        price: 0.52083
+        priceCurrency: USD
+        per: 15 minutes
+      - metric: Uncompressed GiB written (first 50 TiB/month)
+        price: 0.01
+        priceCurrency: USD
+        per: GiB
+      - metric: Uncompressed GiB written (next 250 TiB/month)
+        price: 0.0075
+        priceCurrency: USD
+        per: GiB
+      - metric: Uncompressed GiB written (next 1,250 TiB/month)
+        price: 0.0055
+        priceCurrency: USD
+        per: GiB
+      - metric: Uncompressed GiB written (next 6,250 TiB/month)
+        price: 0.004
+        priceCurrency: USD
+        per: GiB
+      - metric: Uncompressed GiB written (above 7,800 TiB/month)
+        price: 0.003
+        priceCurrency: USD
+        per: GiB
+      - metric: Uncompressed GiB stored (first 50 TiB/month)
+        price: 0.01
+        priceCurrency: USD
+        per: GiB
+      - metric: Uncompressed GiB stored (next 250 TiB/month)
+        price: 0.0085
+        priceCurrency: USD
+        per: GiB
+      - metric: Uncompressed GiB stored (next 500 TiB/month)
+        price: 0.0075
+        priceCurrency: USD
+        per: GiB
+      - metric: Uncompressed GiB stored (next 1,000 TiB/month)
+        price: 0.006
+        priceCurrency: USD
+        per: GiB
+      - metric: Uncompressed GiB stored (above 1,800 TiB/month)
+        price: 0.004
+        priceCurrency: USD
+        per: GiB
+
+  - name: Enterprise
+    description: >
+      Mission-critical cluster tier with 99.999% SLA (with multi-region clusters), support for
+      200,000+ partitions, and custom pricing. Contact WarpStream sales for details.
+    url: https://www.warpstream.com/pricing
+    price: 0.00
+    priceCurrency: USD
+    billingCycle: monthly
+    features:
+      - Kafka-compatible streaming
+      - 200,000+ partitions
+      - 99.999% uptime SLA (requires multi-region clusters)
+      - Custom pricing and contracts
+      - Dedicated support
+      - Multi-region cluster support
+      - Scale-to-zero (idle clusters free)
+      - No per-agent or per-partition fees
+
+  - name: Schema Registry Add-on
+    description: >
+      Optional Schema Registry add-on for any cluster tier, enabling schema management
+      for Kafka producers and consumers compatible with the Confluent Schema Registry API.
+    url: https://www.warpstream.com/pricing
+    price: 0.00
+    priceCurrency: USD
+    billingCycle: monthly
+    usagePricing:
+      - metric: Schema Registry cluster minutes
+        price: 0.34722
+        priceCurrency: USD
+        per: 15 minutes
+
+  - name: Tableflow (Iceberg)
+    description: >
+      Tableflow add-on for streaming data into Apache Iceberg tables. Separate write
+      throughput and storage pricing from standard cluster pricing.
+    url: https://www.warpstream.com/pricing
+    price: 0.00
+    priceCurrency: USD
+    billingCycle: monthly
+    usagePricing:
+      - metric: Tableflow GiB written (0-50 TiB/month)
+        price: 0.04
+        priceCurrency: USD
+        per: GiB
+      - metric: Tableflow GiB written (50-300 TiB/month)
+        price: 0.03
+        priceCurrency: USD
+        per: GiB
+      - metric: Tableflow GiB written (300-1,550 TiB/month)
+        price: 0.022
+        priceCurrency: USD
+        per: GiB
+      - metric: Tableflow GiB written (1,550-7,800 TiB/month)
+        price: 0.016
+        priceCurrency: USD
+        per: GiB
+      - metric: Tableflow GiB written (above 7,800 TiB/month)
+        price: 0.012
+        priceCurrency: USD
+        per: GiB
+      - metric: Tableflow GiB stored (0-50 TiB/month)
+        price: 0.01
+        priceCurrency: USD
+        per: GiB
+      - metric: Tableflow GiB stored (50-300 TiB/month)
+        price: 0.0085
+        priceCurrency: USD
+        per: GiB
+      - metric: Tableflow GiB stored (300-800 TiB/month)
+        price: 0.0075
+        priceCurrency: USD
+        per: GiB
+      - metric: Tableflow GiB stored (800-1,800 TiB/month)
+        price: 0.006
+        priceCurrency: USD
+        per: GiB
+      - metric: Tableflow GiB stored (above 1,800 TiB/month)
+        price: 0.004
+        priceCurrency: USD
+        per: GiB
