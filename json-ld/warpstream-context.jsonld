@@ -1,0 +1,237 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "schema": "https://schema.org/",
+    "warpstream": "https://www.warpstream.com/vocab#",
+    "kafka": "https://kafka.apache.org/vocab#",
+
+    "VirtualCluster": "warpstream:VirtualCluster",
+    "AgentPool": "warpstream:AgentPool",
+    "Pipeline": "warpstream:Pipeline",
+    "Workspace": "warpstream:Workspace",
+    "ApiKey": "warpstream:ApiKey",
+    "AccessGrant": "warpstream:AccessGrant",
+    "VirtualClusterCredentials": "warpstream:VirtualClusterCredentials",
+    "ConsumerGroup": "kafka:ConsumerGroup",
+    "Topic": "kafka:Topic",
+    "AclEntry": "kafka:AclEntry",
+    "Tableflow": "warpstream:Tableflow",
+
+    "id": "@id",
+    "type": "@type",
+
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "created_at": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+
+    "virtual_cluster_id": {
+      "@id": "warpstream:virtualClusterId",
+      "@type": "xsd:string"
+    },
+    "virtual_cluster_name": {
+      "@id": "warpstream:virtualClusterName",
+      "@type": "xsd:string"
+    },
+    "virtual_cluster_type": {
+      "@id": "warpstream:virtualClusterType",
+      "@type": "xsd:string"
+    },
+    "virtual_cluster_region": {
+      "@id": "warpstream:virtualClusterRegion",
+      "@type": "xsd:string"
+    },
+    "virtual_cluster_cloud_provider": {
+      "@id": "warpstream:cloudProvider",
+      "@type": "xsd:string"
+    },
+    "virtual_cluster_tier": {
+      "@id": "warpstream:clusterTier",
+      "@type": "xsd:string"
+    },
+    "bootstrap_url": {
+      "@id": "warpstream:bootstrapUrl",
+      "@type": "xsd:anyURI"
+    },
+
+    "agent_pool_id": {
+      "@id": "warpstream:agentPoolId",
+      "@type": "xsd:string"
+    },
+    "agent_pool_name": {
+      "@id": "warpstream:agentPoolName",
+      "@type": "xsd:string"
+    },
+    "agent_keys": {
+      "@id": "warpstream:agentKeys",
+      "@container": "@set"
+    },
+
+    "key": {
+      "@id": "warpstream:apiKeyValue",
+      "@type": "xsd:string"
+    },
+    "access_grants": {
+      "@id": "warpstream:accessGrants",
+      "@container": "@set"
+    },
+    "principal_kind": {
+      "@id": "warpstream:principalKind",
+      "@type": "xsd:string"
+    },
+    "resource_kind": {
+      "@id": "warpstream:resourceKind",
+      "@type": "xsd:string"
+    },
+    "resource_id": {
+      "@id": "warpstream:resourceId",
+      "@type": "xsd:string"
+    },
+    "workspace_id": {
+      "@id": "warpstream:workspaceId",
+      "@type": "xsd:string"
+    },
+
+    "topic_name": {
+      "@id": "kafka:topicName",
+      "@type": "xsd:string"
+    },
+    "partition_count": {
+      "@id": "kafka:partitionCount",
+      "@type": "xsd:integer"
+    },
+    "shard_count": {
+      "@id": "warpstream:shardCount",
+      "@type": "xsd:integer"
+    },
+    "retention": {
+      "@id": "kafka:retentionPolicy",
+      "@type": "xsd:string"
+    },
+    "uncompressed_size_hint": {
+      "@id": "warpstream:uncompressedSizeHint",
+      "@type": "xsd:string"
+    },
+    "configs": {
+      "@id": "kafka:topicConfigs"
+    },
+
+    "pipeline_id": {
+      "@id": "warpstream:pipelineId",
+      "@type": "xsd:string"
+    },
+    "pipeline_name": {
+      "@id": "warpstream:pipelineName",
+      "@type": "xsd:string"
+    },
+    "pipeline_state": {
+      "@id": "warpstream:pipelineState",
+      "@type": "xsd:string"
+    },
+    "pipeline_type": {
+      "@id": "warpstream:pipelineType",
+      "@type": "xsd:string"
+    },
+    "deployed_configuration_id": {
+      "@id": "warpstream:deployedConfigurationId",
+      "@type": "xsd:string"
+    },
+
+    "resource_type": {
+      "@id": "kafka:aclResourceType",
+      "@type": "xsd:string"
+    },
+    "resource_name": {
+      "@id": "kafka:aclResourceName",
+      "@type": "xsd:string"
+    },
+    "pattern_type": {
+      "@id": "kafka:aclPatternType",
+      "@type": "xsd:string"
+    },
+    "principal": {
+      "@id": "kafka:aclPrincipal",
+      "@type": "xsd:string"
+    },
+    "host": {
+      "@id": "kafka:aclHost",
+      "@type": "xsd:string"
+    },
+    "operation": {
+      "@id": "kafka:aclOperation",
+      "@type": "xsd:string"
+    },
+    "permission_type": {
+      "@id": "kafka:aclPermissionType",
+      "@type": "xsd:string"
+    },
+
+    "username": {
+      "@id": "schema:identifier",
+      "@type": "xsd:string"
+    },
+    "password": {
+      "@id": "warpstream:credentialPassword",
+      "@type": "xsd:string"
+    },
+    "is_cluster_superuser": {
+      "@id": "warpstream:isSuperuser",
+      "@type": "xsd:boolean"
+    },
+
+    "groups": {
+      "@id": "kafka:consumerGroups",
+      "@container": "@set"
+    },
+    "state": {
+      "@id": "warpstream:state",
+      "@type": "xsd:string"
+    },
+    "members": {
+      "@id": "kafka:groupMembers",
+      "@container": "@set"
+    },
+    "committed_offset": {
+      "@id": "kafka:committedOffset",
+      "@type": "xsd:integer"
+    },
+    "min_offset": {
+      "@id": "kafka:minOffset",
+      "@type": "xsd:integer"
+    },
+    "max_offset": {
+      "@id": "kafka:maxOffset",
+      "@type": "xsd:integer"
+    },
+
+    "workspaces": {
+      "@id": "warpstream:workspaces",
+      "@container": "@set"
+    },
+    "virtual_clusters": {
+      "@id": "warpstream:virtualClusters",
+      "@container": "@set"
+    },
+    "topics": {
+      "@id": "kafka:topics",
+      "@container": "@set"
+    },
+    "pipelines": {
+      "@id": "warpstream:pipelines",
+      "@container": "@set"
+    },
+    "api_keys": {
+      "@id": "warpstream:apiKeys",
+      "@container": "@set"
+    }
+  }
+}

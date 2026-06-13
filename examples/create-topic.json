@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.warpstream.com/api/v1/create_topic",
+    "headers": {
+      "Content-Type": "application/json",
+      "warpstream-api-key": "aks_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    "body": {
+      "virtual_cluster_id": "vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee",
+      "topic_name": "my_topic",
+      "partition_count": 128,
+      "configs": {
+        "retention.ms": "604800000"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {}
+  }
+}

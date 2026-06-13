@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/warpstream/main/json-schema/virtual-cluster.json",
+  "title": "VirtualCluster",
+  "description": "A WarpStream Kafka-compatible virtual cluster backed by cloud object storage.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique virtual cluster identifier (prefixed with vci_)",
+      "examples": ["vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee"]
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable cluster name"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["byoc", "byoc_data_lake", "byoc_schema_registry"],
+      "description": "Cluster type"
+    },
+    "region": {
+      "type": "string",
+      "description": "Cloud region where the cluster operates",
+      "examples": ["us-east-1", "us-west-2", "eu-west-1"]
+    },
+    "cloud_provider": {
+      "type": "string",
+      "description": "Cloud provider hosting the cluster",
+      "examples": ["aws", "gcp", "azure"]
+    },
+    "bootstrap_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Kafka bootstrap endpoint for client connections"
+    },
+    "agent_pool_id": {
+      "type": "string",
+      "description": "ID of the associated agent pool"
+    },
+    "agent_pool_name": {
+      "type": "string",
+      "description": "Name of the associated agent pool"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 creation timestamp"
+    },
+    "agent_keys": {
+      "type": "array",
+      "description": "Agent authentication keys associated with this cluster",
+      "items": {
+        "$ref": "api-key.json"
+      }
+    }
+  },
+  "required": ["id", "name", "type", "region", "cloud_provider"],
+  "examples": [
+    {
+      "id": "vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee",
+      "name": "my-cluster",
+      "type": "byoc",
+      "region": "us-east-1",
+      "cloud_provider": "aws",
+      "bootstrap_url": "broker.myworkspace.us-east-1.warpstream.com:9092",
+      "agent_pool_id": "api_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee",
+      "agent_pool_name": "my-cluster-pool",
+      "created_at": "2026-01-01T00:00:00Z"
+    }
+  ]
+}

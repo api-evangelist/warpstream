@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/warpstream/main/json-schema/api-key.json",
+  "title": "ApiKey",
+  "description": "A WarpStream API key used for authenticating management API requests.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique API key identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable key name (prefixed with akn_)",
+      "examples": ["akn_example_agent_key"]
+    },
+    "key": {
+      "type": "string",
+      "description": "The actual secret key value used in the warpstream-api-key header"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of key creation"
+    },
+    "access_grants": {
+      "type": "array",
+      "description": "List of permission grants associated with this key",
+      "items": {
+        "type": "object",
+        "properties": {
+          "principal_kind": {
+            "type": "string",
+            "enum": ["application", "agent"],
+            "description": "Type of principal this grant applies to"
+          },
+          "resource_kind": {
+            "type": "string",
+            "enum": ["*", "virtual_cluster"],
+            "description": "Kind of resource the grant covers"
+          },
+          "resource_id": {
+            "type": "string",
+            "description": "Specific resource ID or '*' for all resources"
+          },
+          "workspace_id": {
+            "type": "string",
+            "description": "Workspace scope, required when using account key"
+          }
+        },
+        "required": ["principal_kind", "resource_kind", "resource_id"]
+      }
+    }
+  },
+  "required": ["id", "name", "key", "created_at"],
+  "examples": [
+    {
+      "id": "aki_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee",
+      "name": "akn_example_agent_key",
+      "key": "aks_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "created_at": "2026-01-01T00:00:00Z",
+      "access_grants": [
+        {
+          "principal_kind": "agent",
+          "resource_kind": "virtual_cluster",
+          "resource_id": "vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee"
+        }
+      ]
+    }
+  ]
+}

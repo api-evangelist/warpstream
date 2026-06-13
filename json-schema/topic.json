@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/warpstream/main/json-schema/topic.json",
+  "title": "Topic",
+  "description": "A Kafka topic within a WarpStream virtual cluster.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique topic identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Topic name"
+    },
+    "created_at": {
+      "type": "number",
+      "description": "Unix timestamp of topic creation"
+    },
+    "retention": {
+      "type": "string",
+      "description": "Retention policy (e.g., retention.ms value)"
+    },
+    "shard_count": {
+      "type": "number",
+      "description": "Number of shards (partitions)"
+    },
+    "uncompressed_size_hint": {
+      "type": "string",
+      "description": "Approximate uncompressed data size"
+    }
+  },
+  "required": ["id", "name"],
+  "examples": [
+    {
+      "id": "tpc_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee",
+      "name": "my_topic",
+      "created_at": 1735689600,
+      "retention": "604800000",
+      "shard_count": 128,
+      "uncompressed_size_hint": "1.2 GB"
+    }
+  ]
+}

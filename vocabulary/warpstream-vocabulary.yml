@@ -1,0 +1,190 @@
+vocabulary:
+  - term: virtual_cluster
+    label: Virtual Cluster
+    definition: >
+      A Kafka-compatible logical cluster hosted within WarpStream. Virtual clusters are
+      stateless and diskless, backed by cloud object storage (S3, GCP, Azure). Each virtual
+      cluster has a unique bootstrap URL for Kafka client connections.
+    tags:
+      - Kafka
+      - Cluster
+      - Core
+
+  - term: agent_pool
+    label: Agent Pool
+    definition: >
+      A group of WarpStream agent binaries that collectively serve a virtual cluster.
+      Agents are stateless Go binaries deployed in the customer's VPC that proxy Kafka
+      protocol traffic between clients and object storage.
+    tags:
+      - Agent
+      - Infrastructure
+      - BYOC
+
+  - term: agent_key
+    label: Agent Key
+    definition: >
+      An API key scoped to a specific virtual cluster, used to authenticate WarpStream
+      agent binaries. A new agent key is automatically created with every new virtual cluster.
+    tags:
+      - Authentication
+      - Key
+      - Agent
+
+  - term: application_key
+    label: Application Key
+    definition: >
+      An API key that can authenticate requests to manage workspace-specific resources
+      such as virtual clusters, topics, ACLs, and pipelines.
+    tags:
+      - Authentication
+      - Key
+      - Workspace
+
+  - term: account_key
+    label: Account Key
+    definition: >
+      An API key that can authenticate requests to manage account-level resources such
+      as workspaces, users, user roles, and invitations.
+    tags:
+      - Authentication
+      - Key
+      - Account
+
+  - term: byoc
+    label: Bring Your Own Cloud (BYOC)
+    definition: >
+      A WarpStream deployment model in which agents run inside the customer's own VPC
+      while metadata and data flow through WarpStream's control plane and the customer's
+      object storage bucket. No data leaves the customer's cloud account.
+    tags:
+      - Deployment
+      - Security
+      - Infrastructure
+
+  - term: bootstrap_url
+    label: Bootstrap URL
+    definition: >
+      The Kafka-compatible connection endpoint for a WarpStream virtual cluster,
+      used by Kafka clients (producers, consumers, admin tools) to establish connections.
+    tags:
+      - Kafka
+      - Connectivity
+      - Client
+
+  - term: pipeline
+    label: Pipeline
+    definition: >
+      A managed data processing component within WarpStream. Three types exist:
+      Bento (stream processing), Orbit (auto-migration from Kafka), and Schema Linking
+      (schema registry synchronization).
+    tags:
+      - Pipeline
+      - Processing
+      - Integration
+
+  - term: bento_pipeline
+    label: Bento Pipeline
+    definition: >
+      A WarpStream pipeline type based on the Bento stream processor (formerly Benthos).
+      Supports complex streaming data transformations and routing within a virtual cluster.
+    tags:
+      - Pipeline
+      - Bento
+      - Processing
+
+  - term: orbit_pipeline
+    label: Orbit Pipeline
+    definition: >
+      A WarpStream pipeline type for automatic migration of data from an existing Kafka
+      cluster into WarpStream. Limited to one per virtual cluster.
+    tags:
+      - Pipeline
+      - Migration
+      - Orbit
+
+  - term: schema_linking_pipeline
+    label: Schema Linking Pipeline
+    definition: >
+      A WarpStream pipeline type that synchronizes schemas between a WarpStream schema
+      registry cluster and an external Confluent Schema Registry. Limited to one per
+      schema registry cluster.
+    tags:
+      - Pipeline
+      - Schema Registry
+      - Integration
+
+  - term: tableflow
+    label: Tableflow
+    definition: >
+      A WarpStream feature that automatically streams data from Kafka topics into Apache
+      Iceberg tables stored in cloud object storage, enabling direct analytics queries
+      without additional ETL.
+    tags:
+      - Tableflow
+      - Iceberg
+      - Analytics
+
+  - term: acl
+    label: Access Control List (ACL)
+    definition: >
+      A Kafka-compatible ACL rule that controls which principals (users or services) can
+      perform specific operations (READ, WRITE, etc.) on specific resources (topics, groups)
+      within a WarpStream virtual cluster.
+    tags:
+      - ACL
+      - Security
+      - Authorization
+
+  - term: consumer_group
+    label: Consumer Group
+    definition: >
+      A group of Kafka consumers that collectively consume messages from a set of topic
+      partitions. WarpStream tracks per-partition committed offsets and lag for each group.
+    tags:
+      - Kafka
+      - Consumer
+      - Monitoring
+
+  - term: workspace
+    label: Workspace
+    definition: >
+      An organizational unit within a WarpStream account. Workspaces contain virtual
+      clusters, API keys, and users. A single account can have multiple workspaces
+      for environment or team isolation.
+    tags:
+      - Workspace
+      - Organization
+      - Account
+
+  - term: exactly_once_semantics
+    label: Exactly Once Semantics (EOS)
+    definition: >
+      A Kafka guarantee that each message is delivered and processed exactly once.
+      WarpStream supports EOS through Kafka transactions, ensuring no duplicates or
+      lost messages even in failure scenarios.
+    tags:
+      - EOS
+      - Transactions
+      - Reliability
+
+  - term: schema_registry
+    label: Schema Registry
+    definition: >
+      A WarpStream component (byoc_schema_registry virtual cluster type) that stores
+      and enforces Avro, Protobuf, or JSON schemas for Kafka messages, ensuring
+      producer-consumer schema compatibility.
+    tags:
+      - Schema Registry
+      - Compatibility
+      - Avro
+
+  - term: virtual_cluster_credentials
+    label: Virtual Cluster Credentials
+    definition: >
+      SASL/SCRAM username and password credentials for Kafka client authentication
+      to a WarpStream virtual cluster, distinct from the HTTP REST API keys.
+    tags:
+      - Credentials
+      - Authentication
+      - SASL

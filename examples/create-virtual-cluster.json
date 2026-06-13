@@ -1,0 +1,40 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.warpstream.com/api/v1/create_virtual_cluster",
+    "headers": {
+      "Content-Type": "application/json",
+      "warpstream-api-key": "aks_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    "body": {
+      "virtual_cluster_name": "my-production-cluster",
+      "virtual_cluster_type": "byoc",
+      "virtual_cluster_region": "us-east-1",
+      "virtual_cluster_cloud_provider": "aws",
+      "virtual_cluster_tier": "dev"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "virtual_cluster_id": "vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee",
+      "virtual_cluster_name": "my-production-cluster",
+      "agent_pool_id": "api_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee",
+      "agent_pool_name": "my-production-cluster-pool",
+      "agent_key": {
+        "id": "aki_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee",
+        "name": "akn_my_production_cluster_agent",
+        "key": "aks_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "created_at": "2026-01-01T00:00:00Z",
+        "access_grants": [
+          {
+            "principal_kind": "agent",
+            "resource_kind": "virtual_cluster",
+            "resource_id": "vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee"
+          }
+        ]
+      },
+      "bootstrap_url": "broker.myworkspace.us-east-1.warpstream.com:9092"
+    }
+  }
+}
