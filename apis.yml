@@ -11,7 +11,7 @@ description: >
   streaming data into Iceberg tables, with pricing based purely on compute minutes and
   uncompressed data written and stored.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/warpstream/refs/heads/main/apis.yml
 created: 2026-06-13
 modified: 2026-06-13
@@ -34,7 +34,7 @@ apis:
       BYOC deployments. All requests are issued as POST requests with JSON payloads and
       authenticated via the warpstream-api-key header using Application Keys, Agent Keys,
       or Account Keys depending on the scope of resources being managed.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://docs.warpstream.com/warpstream/reference/api-reference
     baseURL: https://api.warpstream.com
     tags:
