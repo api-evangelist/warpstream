@@ -1,38 +1,13 @@
 {
-  "name": "WarpStream Blog",
-  "description": "Official WarpStream blog covering engineering deep-dives, product updates, and Kafka/streaming industry topics.",
-  "url": "https://www.warpstream.com/blog",
-  "rss": "https://www.warpstream.com/blog/rss.xml",
-  "last_fetched": "2026-06-13",
-  "posts": [
-    {
-      "title": "The Future of Coding: How Cursor and WarpStream Power AI Productivity",
-      "url": "https://www.warpstream.com/blog/the-future-of-coding-how-cursor-and-warpstream-power-ai-productivity",
-      "published": "2026-06-12"
-    },
-    {
-      "title": "How We Scaled Change Management to 30+ Environments Without a DevOps Team",
-      "url": "https://www.warpstream.com/blog/how-we-scaled-change-management-to-30-environments-without-a-devops-team",
-      "published": "2026-05-26"
-    },
-    {
-      "title": "How WarpStream Reduces Kafka Infrastructure Costs: A TCO Breakdown",
-      "url": "https://www.warpstream.com/blog/warpstream-benchmarks-and-tco",
-      "published": "2026-04-23"
-    },
-    {
-      "title": "Ask Your Cluster Anything: The WarpStream MCP Server",
-      "url": "https://www.warpstream.com/blog/ask-your-cluster-anything-the-warpstream-mcp-server",
-      "published": "2026-04-20"
-    },
-    {
-      "title": "The Art of Being Lazy(log): Lower Latency and Higher Availability With Delayed Sequencing",
-      "url": "https://www.warpstream.com/blog/the-art-of-being-lazy-log-lower-latency-and-higher-availability-with-delayed-sequencing",
-      "published": "2026-04-07"
-    }
-  ],
   "repo": "warpstream",
   "feeds": [
+    {
+      "source": "https://www.warpstream.com/blog/rss.xml",
+      "feed_url": "https://www.warpstream.com/blog/rss.xml",
+      "title": "",
+      "saved": 2,
+      "method": "feed"
+    },
     {
       "source": "https://www.linkedin.com/company/warpstream/",
       "feed_url": "https://www.linkedin.com/company/warpstream/",
@@ -41,6 +16,6 @@
       "method": "none"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T12:03:07Z",
+  "post_count": 3
 }

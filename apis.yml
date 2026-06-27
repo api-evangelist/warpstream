@@ -75,7 +75,7 @@ common:
     url: finops/warpstream-finops.yml
   - type: Vocabulary
     url: vocabulary/warpstream-vocabulary.yml
-  - type: JSONLd
+  - type: JSONLD
     url: json-ld/warpstream-context.jsonld
   - type: BlogRSS
     url: https://www.warpstream.com/blog/rss.xml
