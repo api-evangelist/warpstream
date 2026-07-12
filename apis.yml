@@ -51,6 +51,12 @@ apis:
       - type: OpenAPI
         url: openapi/warpstream-management-openapi.yml
 common:
+  - type: TrustCenter
+    url: security/warpstream-trust-center.yml
+  - type: DomainSecurity
+    url: security/warpstream-domain-security.yml
+  - type: Authentication
+    url: authentication/warpstream-authentication.yml
   - type: Website
     url: https://www.warpstream.com/
   - type: Documentation
