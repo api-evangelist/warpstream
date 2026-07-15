@@ -51,6 +51,8 @@ apis:
       - type: OpenAPI
         url: openapi/warpstream-management-openapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/warpstream-agentic-access.yml
   - type: TrustCenter
     url: security/warpstream-trust-center.yml
   - type: DomainSecurity
