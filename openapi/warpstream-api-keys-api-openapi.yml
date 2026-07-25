@@ -1,0 +1,136 @@
+openapi: 3.0.3
+info:
+  title: WarpStream Management ACLs API Keys API
+  description: 'REST API for programmatically managing all aspects of the WarpStream control plane, including workspaces, virtual clusters, topics, ACLs, pipelines, agent pools, and BYOC deployments. All requests are issued as POST or GET requests with JSON payloads and authenticated via the warpstream-api-key header using Application Keys, Agent Keys, or Account Keys depending on the scope of resources being managed.
+
+    '
+  version: 1.0.0
+  contact:
+    url: https://docs.warpstream.com/warpstream/reference/api-reference
+  license:
+    name: WarpStream Terms of Service
+    url: https://www.warpstream.com/terms-of-service
+servers:
+- url: https://api.warpstream.com
+  description: WarpStream Management API
+security:
+- ApiKeyAuth: []
+tags:
+- name: API Keys
+  description: Manage API keys and access grants
+paths:
+  /api/v1/list_api_keys:
+    get:
+      operationId: listApiKeys
+      summary: List API Keys
+      description: Returns all API keys belonging to the same workspace as the authenticating key.
+      tags:
+      - API Keys
+      responses:
+        '200':
+          description: List of API keys
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  api_keys:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ApiKey'
+  /api/v1/create_api_key:
+    post:
+      operationId: createApiKey
+      summary: Create API Key
+      description: Creates a new API key with specified access grants.
+      tags:
+      - API Keys
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - access_grants
+              properties:
+                name:
+                  type: string
+                  description: Key name (alphanumeric and underscores only; gets akn_ prefix)
+                access_grants:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/AccessGrant'
+                  description: List of permission grants for this key
+                virtual_cluster_type:
+                  type: string
+                  description: Set to byoc_schema_registry for Schema Registry agent keys
+            example:
+              name: example_agent_key
+              access_grants:
+              - principal_kind: agent
+                resource_kind: virtual_cluster
+                resource_id: vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee
+      responses:
+        '200':
+          description: Created API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKey'
+components:
+  schemas:
+    AccessGrant:
+      type: object
+      description: Permission grant for an API key
+      properties:
+        principal_kind:
+          type: string
+          enum:
+          - application
+          - agent
+          description: Type of principal
+        resource_kind:
+          type: string
+          enum:
+          - '*'
+          - virtual_cluster
+          description: Kind of resource the grant applies to
+        resource_id:
+          type: string
+          description: Specific resource ID or '*' for all resources
+        workspace_id:
+          type: string
+          description: Workspace ID, required when using an account key
+    ApiKey:
+      type: object
+      properties:
+        id:
+          type: string
+          description: API key identifier
+        name:
+          type: string
+          description: Human-readable key name (prefixed with akn_)
+        key:
+          type: string
+          description: The actual secret key value
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 creation timestamp
+        access_grants:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessGrant'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: warpstream-api-key
+      description: 'WarpStream API key. Three key types are supported: Application Keys (manage workspace-specific resources), Agent Keys (scoped to a specific virtual cluster), and Account Keys (manage account-level resources such as workspaces and users).
+
+        '
+externalDocs:
+  description: WarpStream API Reference Documentation
+  url: https://docs.warpstream.com/warpstream/reference/api-reference

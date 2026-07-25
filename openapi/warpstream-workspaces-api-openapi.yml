@@ -1,0 +1,146 @@
+openapi: 3.0.3
+info:
+  title: WarpStream Management ACLs Workspaces API
+  description: 'REST API for programmatically managing all aspects of the WarpStream control plane, including workspaces, virtual clusters, topics, ACLs, pipelines, agent pools, and BYOC deployments. All requests are issued as POST or GET requests with JSON payloads and authenticated via the warpstream-api-key header using Application Keys, Agent Keys, or Account Keys depending on the scope of resources being managed.
+
+    '
+  version: 1.0.0
+  contact:
+    url: https://docs.warpstream.com/warpstream/reference/api-reference
+  license:
+    name: WarpStream Terms of Service
+    url: https://www.warpstream.com/terms-of-service
+servers:
+- url: https://api.warpstream.com
+  description: WarpStream Management API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Workspaces
+  description: Manage WarpStream workspaces (account-level)
+paths:
+  /api/v1/list_workspaces:
+    get:
+      operationId: listWorkspaces
+      summary: List Workspaces
+      description: Returns all workspaces accessible to the authenticated account key.
+      tags:
+      - Workspaces
+      responses:
+        '200':
+          description: List of workspaces
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  workspaces:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Workspace'
+  /api/v1/create_workspace:
+    post:
+      operationId: createWorkspace
+      summary: Create Workspace
+      description: Creates a new workspace under the account.
+      tags:
+      - Workspaces
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - workspace_name
+              properties:
+                workspace_name:
+                  type: string
+                  description: Name for the new workspace
+                skip_application_key_creation:
+                  type: boolean
+                  description: Set to true to skip automatic application key creation
+                  default: false
+            example:
+              workspace_name: my-workspace
+              skip_application_key_creation: false
+      responses:
+        '200':
+          description: Created workspace details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  workspace_id:
+                    type: string
+                  application_key:
+                    $ref: '#/components/schemas/ApiKey'
+components:
+  schemas:
+    Workspace:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Workspace identifier
+        name:
+          type: string
+          description: Workspace name
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 creation timestamp
+    ApiKey:
+      type: object
+      properties:
+        id:
+          type: string
+          description: API key identifier
+        name:
+          type: string
+          description: Human-readable key name (prefixed with akn_)
+        key:
+          type: string
+          description: The actual secret key value
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 creation timestamp
+        access_grants:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessGrant'
+    AccessGrant:
+      type: object
+      description: Permission grant for an API key
+      properties:
+        principal_kind:
+          type: string
+          enum:
+          - application
+          - agent
+          description: Type of principal
+        resource_kind:
+          type: string
+          enum:
+          - '*'
+          - virtual_cluster
+          description: Kind of resource the grant applies to
+        resource_id:
+          type: string
+          description: Specific resource ID or '*' for all resources
+        workspace_id:
+          type: string
+          description: Workspace ID, required when using an account key
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: warpstream-api-key
+      description: 'WarpStream API key. Three key types are supported: Application Keys (manage workspace-specific resources), Agent Keys (scoped to a specific virtual cluster), and Account Keys (manage account-level resources such as workspaces and users).
+
+        '
+externalDocs:
+  description: WarpStream API Reference Documentation
+  url: https://docs.warpstream.com/warpstream/reference/api-reference

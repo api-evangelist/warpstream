@@ -1,0 +1,132 @@
+openapi: 3.0.3
+info:
+  title: WarpStream Management ACLs Monitoring API
+  description: 'REST API for programmatically managing all aspects of the WarpStream control plane, including workspaces, virtual clusters, topics, ACLs, pipelines, agent pools, and BYOC deployments. All requests are issued as POST or GET requests with JSON payloads and authenticated via the warpstream-api-key header using Application Keys, Agent Keys, or Account Keys depending on the scope of resources being managed.
+
+    '
+  version: 1.0.0
+  contact:
+    url: https://docs.warpstream.com/warpstream/reference/api-reference
+  license:
+    name: WarpStream Terms of Service
+    url: https://www.warpstream.com/terms-of-service
+servers:
+- url: https://api.warpstream.com
+  description: WarpStream Management API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Monitoring
+  description: Monitor consumer groups and cluster health
+paths:
+  /api/v1/monitoring/describe_all_consumer_groups:
+    post:
+      operationId: describeAllConsumerGroups
+      summary: Describe All Consumer Groups
+      description: Returns detailed information about all consumer groups in a virtual cluster, including per-partition offset metrics.
+      tags:
+      - Monitoring
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - virtual_cluster_id
+              properties:
+                virtual_cluster_id:
+                  type: string
+                  description: Target virtual cluster ID
+            example:
+              virtual_cluster_id: vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee
+      responses:
+        '200':
+          description: Consumer group state information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state:
+                    type: object
+                    properties:
+                      groups:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ConsumerGroup'
+components:
+  schemas:
+    ConsumerGroupMember:
+      type: object
+      properties:
+        id:
+          type: string
+        group_instance_id:
+          type: string
+        client_id:
+          type: string
+        client_host:
+          type: string
+        assignment:
+          type: object
+          properties:
+            assignments:
+              type: array
+              items:
+                type: object
+                properties:
+                  topic_name:
+                    type: string
+                  partitions:
+                    type: array
+                    items:
+                      type: integer
+    ConsumerGroup:
+      type: object
+      properties:
+        name:
+          type: string
+        state:
+          type: string
+        protocol:
+          type: string
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsumerGroupMember'
+        topics:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              partitions:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    member_id:
+                      type: string
+                    partition:
+                      type: integer
+                    empty:
+                      type: boolean
+                    min_offset:
+                      type: integer
+                    max_offset:
+                      type: integer
+                    committed_offset:
+                      type: integer
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: warpstream-api-key
+      description: 'WarpStream API key. Three key types are supported: Application Keys (manage workspace-specific resources), Agent Keys (scoped to a specific virtual cluster), and Account Keys (manage account-level resources such as workspaces and users).
+
+        '
+externalDocs:
+  description: WarpStream API Reference Documentation
+  url: https://docs.warpstream.com/warpstream/reference/api-reference

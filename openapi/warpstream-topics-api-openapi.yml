@@ -1,0 +1,183 @@
+openapi: 3.0.3
+info:
+  title: WarpStream Management ACLs Topics API
+  description: 'REST API for programmatically managing all aspects of the WarpStream control plane, including workspaces, virtual clusters, topics, ACLs, pipelines, agent pools, and BYOC deployments. All requests are issued as POST or GET requests with JSON payloads and authenticated via the warpstream-api-key header using Application Keys, Agent Keys, or Account Keys depending on the scope of resources being managed.
+
+    '
+  version: 1.0.0
+  contact:
+    url: https://docs.warpstream.com/warpstream/reference/api-reference
+  license:
+    name: WarpStream Terms of Service
+    url: https://www.warpstream.com/terms-of-service
+servers:
+- url: https://api.warpstream.com
+  description: WarpStream Management API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Topics
+  description: Manage Kafka topics within virtual clusters
+paths:
+  /api/v1/list_topics:
+    post:
+      operationId: listTopics
+      summary: List Topics
+      description: Returns all topics in a virtual cluster.
+      tags:
+      - Topics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - virtual_cluster_id
+              properties:
+                virtual_cluster_id:
+                  type: string
+                  description: Target virtual cluster ID
+                include_recently_deleted:
+                  type: boolean
+                  description: Include recently soft-deleted topics in response
+            example:
+              virtual_cluster_id: vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee
+              include_recently_deleted: false
+      responses:
+        '200':
+          description: List of topics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  topics:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Topic'
+                  recently_deleted_topics:
+                    nullable: true
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Topic'
+  /api/v1/create_topic:
+    post:
+      operationId: createTopic
+      summary: Create Topic
+      description: Creates a new Kafka topic in the specified virtual cluster.
+      tags:
+      - Topics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - virtual_cluster_id
+              - topic_name
+              - partition_count
+              properties:
+                virtual_cluster_id:
+                  type: string
+                  description: Target virtual cluster ID
+                topic_name:
+                  type: string
+                  description: Name of the topic
+                partition_count:
+                  type: integer
+                  description: Number of partitions
+                configs:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  description: Optional Kafka topic configuration key-value pairs
+            example:
+              virtual_cluster_id: vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee
+              topic_name: my_topic
+              partition_count: 128
+              configs:
+                retention.ms: '604800000'
+      responses:
+        '200':
+          description: Topic created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyResponse'
+  /api/v1/delete_topic:
+    post:
+      operationId: deleteTopic
+      summary: Delete Topic
+      description: Deletes a topic from a virtual cluster. Supports soft-delete for recovery.
+      tags:
+      - Topics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - virtual_cluster_id
+              - topic_name
+              properties:
+                virtual_cluster_id:
+                  type: string
+                  description: Target virtual cluster ID
+                topic_name:
+                  type: string
+                  description: Name of the topic to delete
+                soft_delete:
+                  type: boolean
+                  description: If true, topic can be recovered; if false, permanently deleted
+            example:
+              virtual_cluster_id: vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee
+              topic_name: my_topic
+              soft_delete: true
+      responses:
+        '200':
+          description: Topic deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyResponse'
+components:
+  schemas:
+    EmptyResponse:
+      type: object
+      description: Empty JSON object indicating success
+      additionalProperties: false
+    Topic:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Topic identifier
+        name:
+          type: string
+          description: Topic name
+        created_at:
+          type: number
+          description: Unix timestamp of creation
+        retention:
+          type: string
+          description: Retention policy string
+        shard_count:
+          type: number
+          description: Number of shards/partitions
+        uncompressed_size_hint:
+          type: string
+          description: Approximate uncompressed size
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: warpstream-api-key
+      description: 'WarpStream API key. Three key types are supported: Application Keys (manage workspace-specific resources), Agent Keys (scoped to a specific virtual cluster), and Account Keys (manage account-level resources such as workspaces and users).
+
+        '
+externalDocs:
+  description: WarpStream API Reference Documentation
+  url: https://docs.warpstream.com/warpstream/reference/api-reference

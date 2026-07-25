@@ -1,0 +1,143 @@
+openapi: 3.0.3
+info:
+  title: WarpStream Management ACLs Pipelines API
+  description: 'REST API for programmatically managing all aspects of the WarpStream control plane, including workspaces, virtual clusters, topics, ACLs, pipelines, agent pools, and BYOC deployments. All requests are issued as POST or GET requests with JSON payloads and authenticated via the warpstream-api-key header using Application Keys, Agent Keys, or Account Keys depending on the scope of resources being managed.
+
+    '
+  version: 1.0.0
+  contact:
+    url: https://docs.warpstream.com/warpstream/reference/api-reference
+  license:
+    name: WarpStream Terms of Service
+    url: https://www.warpstream.com/terms-of-service
+servers:
+- url: https://api.warpstream.com
+  description: WarpStream Management API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Pipelines
+  description: Manage data pipelines (Bento, Orbit, Schema Linking)
+paths:
+  /api/v1/list_pipelines:
+    post:
+      operationId: listPipelines
+      summary: List Pipelines
+      description: Returns all pipelines in the specified virtual cluster.
+      tags:
+      - Pipelines
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - virtual_cluster_id
+              properties:
+                virtual_cluster_id:
+                  type: string
+                  description: Target virtual cluster ID
+            example:
+              virtual_cluster_id: vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee
+      responses:
+        '200':
+          description: List of pipelines
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pipelines:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Pipeline'
+  /api/v1/create_pipeline:
+    post:
+      operationId: createPipeline
+      summary: Create Pipeline
+      description: 'Creates a new pipeline in a virtual cluster. Default type is bento. Orbit pipelines are limited to one per virtual cluster. Schema Linking pipelines are limited to one per schema registry cluster.
+
+        '
+      tags:
+      - Pipelines
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - virtual_cluster_id
+              - pipeline_name
+              properties:
+                virtual_cluster_id:
+                  type: string
+                  description: Target virtual cluster ID
+                pipeline_name:
+                  type: string
+                  description: Name for the new pipeline
+                pipeline_type:
+                  type: string
+                  enum:
+                  - bento
+                  - orbit
+                  - schema_linking
+                  description: Pipeline type (defaults to bento)
+            example:
+              virtual_cluster_id: vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee
+              pipeline_name: my-pipeline
+              pipeline_type: bento
+      responses:
+        '200':
+          description: Created pipeline details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pipeline_id:
+                    type: string
+                  pipeline_name:
+                    type: string
+                  pipeline_state:
+                    type: string
+                  pipeline_type:
+                    type: string
+                  pipeline_deployed_configuration_id:
+                    type: string
+components:
+  schemas:
+    Pipeline:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Pipeline identifier
+        name:
+          type: string
+          description: Pipeline name
+        state:
+          type: string
+          description: Operational status (e.g., running, paused)
+        type:
+          type: string
+          enum:
+          - bento
+          - orbit
+          - schema_linking
+          description: Pipeline type
+        deployed_configuration_id:
+          type: string
+          description: Reference to active configuration
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: warpstream-api-key
+      description: 'WarpStream API key. Three key types are supported: Application Keys (manage workspace-specific resources), Agent Keys (scoped to a specific virtual cluster), and Account Keys (manage account-level resources such as workspaces and users).
+
+        '
+externalDocs:
+  description: WarpStream API Reference Documentation
+  url: https://docs.warpstream.com/warpstream/reference/api-reference

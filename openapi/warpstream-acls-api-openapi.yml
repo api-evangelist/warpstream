@@ -1,0 +1,108 @@
+openapi: 3.0.3
+info:
+  title: WarpStream Management ACLs API
+  description: 'REST API for programmatically managing all aspects of the WarpStream control plane, including workspaces, virtual clusters, topics, ACLs, pipelines, agent pools, and BYOC deployments. All requests are issued as POST or GET requests with JSON payloads and authenticated via the warpstream-api-key header using Application Keys, Agent Keys, or Account Keys depending on the scope of resources being managed.
+
+    '
+  version: 1.0.0
+  contact:
+    url: https://docs.warpstream.com/warpstream/reference/api-reference
+  license:
+    name: WarpStream Terms of Service
+    url: https://www.warpstream.com/terms-of-service
+servers:
+- url: https://api.warpstream.com
+  description: WarpStream Management API
+security:
+- ApiKeyAuth: []
+tags:
+- name: ACLs
+  description: Manage Kafka ACL rules for access control
+paths:
+  /api/v1/virtual_clusters/acls/create:
+    post:
+      operationId: createAcl
+      summary: Create ACL
+      description: Creates a Kafka ACL rule for the specified virtual cluster.
+      tags:
+      - ACLs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - virtual_cluster_id
+              - acl
+              properties:
+                virtual_cluster_id:
+                  type: string
+                  description: Target virtual cluster ID
+                acl:
+                  $ref: '#/components/schemas/AclEntry'
+            example:
+              virtual_cluster_id: vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee
+              acl:
+                resource_type: TOPIC
+                resource_name: my_topic
+                pattern_type: LITERAL
+                principal: User:alice
+                host: '*'
+                operation: READ
+                permission_type: ALLOW
+      responses:
+        '200':
+          description: ACL created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  acl:
+                    $ref: '#/components/schemas/AclEntry'
+components:
+  schemas:
+    AclEntry:
+      type: object
+      required:
+      - resource_type
+      - resource_name
+      - pattern_type
+      - principal
+      - host
+      - operation
+      - permission_type
+      properties:
+        resource_type:
+          type: string
+          description: Kafka resource type (e.g., TOPIC, GROUP)
+        resource_name:
+          type: string
+          description: Name of the resource
+        pattern_type:
+          type: string
+          description: Pattern matching type (e.g., LITERAL, PREFIXED)
+        principal:
+          type: string
+          description: Principal (e.g., User:alice)
+        host:
+          type: string
+          description: Host to restrict access from
+        operation:
+          type: string
+          description: Kafka operation (e.g., READ, WRITE, ALL)
+        permission_type:
+          type: string
+          description: Permission type (ALLOW or DENY)
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: warpstream-api-key
+      description: 'WarpStream API key. Three key types are supported: Application Keys (manage workspace-specific resources), Agent Keys (scoped to a specific virtual cluster), and Account Keys (manage account-level resources such as workspaces and users).
+
+        '
+externalDocs:
+  description: WarpStream API Reference Documentation
+  url: https://docs.warpstream.com/warpstream/reference/api-reference
