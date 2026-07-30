@@ -11,7 +11,20 @@ description: >
   streaming data into Iceberg tables, with pricing based purely on compute minutes and
   uncompressed data written and stored.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: open
+  trial: false
+  try_now: true
+  public: true
+  label: Freemium · Open access
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/warpstream.png
 url: https://raw.githubusercontent.com/api-evangelist/warpstream/refs/heads/main/apis.yml
 created: 2026-06-13
 modified: 2026-06-13
@@ -27,29 +40,102 @@ tags:
   - Message Queue
   - Event Streaming
 apis:
-  - name: WarpStream Management API
-    description: >
-      REST API for programmatically managing all aspects of the WarpStream control plane,
-      including workspaces, virtual clusters, topics, ACLs, pipelines, agent pools, and
-      BYOC deployments. All requests are issued as POST requests with JSON payloads and
-      authenticated via the warpstream-api-key header using Application Keys, Agent Keys,
-      or Account Keys depending on the scope of resources being managed.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.warpstream.com/warpstream/reference/api-reference
-    baseURL: https://api.warpstream.com
-    tags:
-      - Kafka
-      - Streaming
-      - Clusters
-      - Virtual Clusters
-      - Agent Pools
-      - BYOC
-      - Management
-    properties:
-      - type: Documentation
-        url: https://docs.warpstream.com/warpstream/reference/api-reference
-      - type: OpenAPI
-        url: openapi/warpstream-management-openapi.yml
+- aid: warpstream:warpstream-acls-api
+  name: WarpStream ACLs API
+  description: Manage Kafka ACL rules for access control
+  humanURL: https://docs.warpstream.com/warpstream/reference/api-reference
+  baseURL: https://api.warpstream.com
+  tags:
+  - ACLs
+  properties:
+  - type: OpenAPI
+    url: openapi/warpstream-acls-api-openapi.yml
+  - type: Documentation
+    url: https://docs.warpstream.com/warpstream/reference/api-reference
+- aid: warpstream:warpstream-api-keys-api
+  name: WarpStream API Keys API
+  description: Manage API keys and access grants
+  humanURL: https://docs.warpstream.com/warpstream/reference/api-reference
+  baseURL: https://api.warpstream.com
+  tags:
+  - API Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/warpstream-api-keys-api-openapi.yml
+  - type: Documentation
+    url: https://docs.warpstream.com/warpstream/reference/api-reference
+- aid: warpstream:warpstream-monitoring-api
+  name: WarpStream Monitoring API
+  description: Monitor consumer groups and cluster health
+  humanURL: https://docs.warpstream.com/warpstream/reference/api-reference
+  baseURL: https://api.warpstream.com
+  tags:
+  - Monitoring
+  properties:
+  - type: OpenAPI
+    url: openapi/warpstream-monitoring-api-openapi.yml
+  - type: Documentation
+    url: https://docs.warpstream.com/warpstream/reference/api-reference
+- aid: warpstream:warpstream-pipelines-api
+  name: WarpStream Pipelines API
+  description: Manage data pipelines (Bento, Orbit, Schema Linking)
+  humanURL: https://docs.warpstream.com/warpstream/reference/api-reference
+  baseURL: https://api.warpstream.com
+  tags:
+  - Pipelines
+  properties:
+  - type: OpenAPI
+    url: openapi/warpstream-pipelines-api-openapi.yml
+  - type: Documentation
+    url: https://docs.warpstream.com/warpstream/reference/api-reference
+- aid: warpstream:warpstream-topics-api
+  name: WarpStream Topics API
+  description: Manage Kafka topics within virtual clusters
+  humanURL: https://docs.warpstream.com/warpstream/reference/api-reference
+  baseURL: https://api.warpstream.com
+  tags:
+  - Topics
+  properties:
+  - type: OpenAPI
+    url: openapi/warpstream-topics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.warpstream.com/warpstream/reference/api-reference
+- aid: warpstream:warpstream-virtual-cluster-credentials-api
+  name: WarpStream Virtual Cluster Credentials API
+  description: Manage SASL/SCRAM credentials for virtual cluster access
+  humanURL: https://docs.warpstream.com/warpstream/reference/api-reference
+  baseURL: https://api.warpstream.com
+  tags:
+  - Virtual Cluster Credentials
+  properties:
+  - type: OpenAPI
+    url: openapi/warpstream-virtual-cluster-credentials-api-openapi.yml
+  - type: Documentation
+    url: https://docs.warpstream.com/warpstream/reference/api-reference
+- aid: warpstream:warpstream-virtual-clusters-api
+  name: WarpStream Virtual Clusters API
+  description: Manage Kafka-compatible virtual clusters
+  humanURL: https://docs.warpstream.com/warpstream/reference/api-reference
+  baseURL: https://api.warpstream.com
+  tags:
+  - Virtual Clusters
+  properties:
+  - type: OpenAPI
+    url: openapi/warpstream-virtual-clusters-api-openapi.yml
+  - type: Documentation
+    url: https://docs.warpstream.com/warpstream/reference/api-reference
+- aid: warpstream:warpstream-workspaces-api
+  name: WarpStream Workspaces API
+  description: Manage WarpStream workspaces (account-level)
+  humanURL: https://docs.warpstream.com/warpstream/reference/api-reference
+  baseURL: https://api.warpstream.com
+  tags:
+  - Workspaces
+  properties:
+  - type: OpenAPI
+    url: openapi/warpstream-workspaces-api-openapi.yml
+  - type: Documentation
+    url: https://docs.warpstream.com/warpstream/reference/api-reference
 common:
   - type: AgenticAccess
     url: agentic-access/warpstream-agentic-access.yml
