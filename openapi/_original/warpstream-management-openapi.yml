@@ -1,0 +1,887 @@
+openapi: 3.0.3
+info:
+  title: WarpStream Management API
+  description: >
+    REST API for programmatically managing all aspects of the WarpStream control plane,
+    including workspaces, virtual clusters, topics, ACLs, pipelines, agent pools, and
+    BYOC deployments. All requests are issued as POST or GET requests with JSON payloads
+    and authenticated via the warpstream-api-key header using Application Keys, Agent Keys,
+    or Account Keys depending on the scope of resources being managed.
+  version: 1.0.0
+  contact:
+    url: https://docs.warpstream.com/warpstream/reference/api-reference
+  license:
+    name: WarpStream Terms of Service
+    url: https://www.warpstream.com/terms-of-service
+externalDocs:
+  description: WarpStream API Reference Documentation
+  url: https://docs.warpstream.com/warpstream/reference/api-reference
+servers:
+  - url: https://api.warpstream.com
+    description: WarpStream Management API
+
+security:
+  - ApiKeyAuth: []
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: warpstream-api-key
+      description: >
+        WarpStream API key. Three key types are supported: Application Keys (manage workspace-specific
+        resources), Agent Keys (scoped to a specific virtual cluster), and Account Keys (manage
+        account-level resources such as workspaces and users).
+
+  schemas:
+    AccessGrant:
+      type: object
+      description: Permission grant for an API key
+      properties:
+        principal_kind:
+          type: string
+          enum: [application, agent]
+          description: Type of principal
+        resource_kind:
+          type: string
+          enum: ['*', virtual_cluster]
+          description: Kind of resource the grant applies to
+        resource_id:
+          type: string
+          description: Specific resource ID or '*' for all resources
+        workspace_id:
+          type: string
+          description: Workspace ID, required when using an account key
+
+    ApiKey:
+      type: object
+      properties:
+        id:
+          type: string
+          description: API key identifier
+        name:
+          type: string
+          description: Human-readable key name (prefixed with akn_)
+        key:
+          type: string
+          description: The actual secret key value
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 creation timestamp
+        access_grants:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessGrant'
+
+    VirtualCluster:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique cluster identifier
+        agent_pool_id:
+          type: string
+          description: Associated agent pool ID
+        agent_pool_name:
+          type: string
+          description: Agent pool display name
+        name:
+          type: string
+          description: Cluster name
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 creation timestamp
+        type:
+          type: string
+          enum: [byoc, byoc_data_lake, byoc_schema_registry]
+          description: Cluster type
+        region:
+          type: string
+          description: Cloud region (e.g., us-east-1)
+        cloud_provider:
+          type: string
+          description: Cloud provider (e.g., aws, gcp, azure)
+        bootstrap_url:
+          type: string
+          description: Kafka bootstrap connection endpoint
+        agent_keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiKey'
+
+    Topic:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Topic identifier
+        name:
+          type: string
+          description: Topic name
+        created_at:
+          type: number
+          description: Unix timestamp of creation
+        retention:
+          type: string
+          description: Retention policy string
+        shard_count:
+          type: number
+          description: Number of shards/partitions
+        uncompressed_size_hint:
+          type: string
+          description: Approximate uncompressed size
+
+    AclEntry:
+      type: object
+      required:
+        - resource_type
+        - resource_name
+        - pattern_type
+        - principal
+        - host
+        - operation
+        - permission_type
+      properties:
+        resource_type:
+          type: string
+          description: Kafka resource type (e.g., TOPIC, GROUP)
+        resource_name:
+          type: string
+          description: Name of the resource
+        pattern_type:
+          type: string
+          description: Pattern matching type (e.g., LITERAL, PREFIXED)
+        principal:
+          type: string
+          description: Principal (e.g., User:alice)
+        host:
+          type: string
+          description: Host to restrict access from
+        operation:
+          type: string
+          description: Kafka operation (e.g., READ, WRITE, ALL)
+        permission_type:
+          type: string
+          description: Permission type (ALLOW or DENY)
+
+    Pipeline:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Pipeline identifier
+        name:
+          type: string
+          description: Pipeline name
+        state:
+          type: string
+          description: Operational status (e.g., running, paused)
+        type:
+          type: string
+          enum: [bento, orbit, schema_linking]
+          description: Pipeline type
+        deployed_configuration_id:
+          type: string
+          description: Reference to active configuration
+
+    Workspace:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Workspace identifier
+        name:
+          type: string
+          description: Workspace name
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 creation timestamp
+
+    ConsumerGroupMember:
+      type: object
+      properties:
+        id:
+          type: string
+        group_instance_id:
+          type: string
+        client_id:
+          type: string
+        client_host:
+          type: string
+        assignment:
+          type: object
+          properties:
+            assignments:
+              type: array
+              items:
+                type: object
+                properties:
+                  topic_name:
+                    type: string
+                  partitions:
+                    type: array
+                    items:
+                      type: integer
+
+    ConsumerGroup:
+      type: object
+      properties:
+        name:
+          type: string
+        state:
+          type: string
+        protocol:
+          type: string
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsumerGroupMember'
+        topics:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              partitions:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    member_id:
+                      type: string
+                    partition:
+                      type: integer
+                    empty:
+                      type: boolean
+                    min_offset:
+                      type: integer
+                    max_offset:
+                      type: integer
+                    committed_offset:
+                      type: integer
+
+    VirtualClusterCredentials:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+
+    EmptyResponse:
+      type: object
+      description: Empty JSON object indicating success
+      additionalProperties: false
+
+paths:
+  # ── Workspaces ───────────────────────────────────────────────
+  /api/v1/list_workspaces:
+    get:
+      operationId: listWorkspaces
+      summary: List Workspaces
+      description: Returns all workspaces accessible to the authenticated account key.
+      tags:
+        - Workspaces
+      responses:
+        '200':
+          description: List of workspaces
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  workspaces:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Workspace'
+
+  /api/v1/create_workspace:
+    post:
+      operationId: createWorkspace
+      summary: Create Workspace
+      description: Creates a new workspace under the account.
+      tags:
+        - Workspaces
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - workspace_name
+              properties:
+                workspace_name:
+                  type: string
+                  description: Name for the new workspace
+                skip_application_key_creation:
+                  type: boolean
+                  description: Set to true to skip automatic application key creation
+                  default: false
+            example:
+              workspace_name: my-workspace
+              skip_application_key_creation: false
+      responses:
+        '200':
+          description: Created workspace details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  workspace_id:
+                    type: string
+                  application_key:
+                    $ref: '#/components/schemas/ApiKey'
+
+  # ── Virtual Clusters ──────────────────────────────────────────
+  /api/v1/list_virtual_clusters:
+    get:
+      operationId: listVirtualClusters
+      summary: List Virtual Clusters
+      description: Returns all virtual clusters in the authenticated workspace.
+      tags:
+        - Virtual Clusters
+      responses:
+        '200':
+          description: List of virtual clusters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  virtual_clusters:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VirtualCluster'
+
+  /api/v1/create_virtual_cluster:
+    post:
+      operationId: createVirtualCluster
+      summary: Create Virtual Cluster
+      description: >
+        Creates a new virtual cluster. A new agent key is automatically created with
+        every new virtual cluster.
+      tags:
+        - Virtual Clusters
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - virtual_cluster_name
+                - virtual_cluster_type
+                - virtual_cluster_region
+                - virtual_cluster_cloud_provider
+                - virtual_cluster_tier
+              properties:
+                virtual_cluster_name:
+                  type: string
+                  description: Name for the cluster
+                virtual_cluster_type:
+                  type: string
+                  enum: [byoc, byoc_data_lake, byoc_schema_registry]
+                  description: Type of virtual cluster
+                virtual_cluster_region:
+                  type: string
+                  description: Cloud region (e.g., us-east-1)
+                virtual_cluster_cloud_provider:
+                  type: string
+                  description: Cloud provider (e.g., aws, gcp, azure)
+                virtual_cluster_tier:
+                  type: string
+                  description: Cluster tier (e.g., dev, prod)
+            example:
+              virtual_cluster_name: my-cluster
+              virtual_cluster_type: byoc
+              virtual_cluster_region: us-east-1
+              virtual_cluster_cloud_provider: aws
+              virtual_cluster_tier: dev
+      responses:
+        '200':
+          description: Created virtual cluster details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  virtual_cluster_id:
+                    type: string
+                  virtual_cluster_name:
+                    type: string
+                  agent_pool_id:
+                    type: string
+                  agent_pool_name:
+                    type: string
+                  agent_key:
+                    $ref: '#/components/schemas/ApiKey'
+                  bootstrap_url:
+                    type: string
+
+  /api/v1/delete_virtual_cluster:
+    post:
+      operationId: deleteVirtualCluster
+      summary: Delete Virtual Cluster
+      description: >
+        Permanently deletes a virtual cluster and all its data. Both virtual_cluster_id
+        and virtual_cluster_name are required as a confirmation safeguard. This operation
+        cannot be undone.
+      tags:
+        - Virtual Clusters
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - virtual_cluster_id
+                - virtual_cluster_name
+              properties:
+                virtual_cluster_id:
+                  type: string
+                  description: ID of the cluster to delete
+                virtual_cluster_name:
+                  type: string
+                  description: Name of the cluster (confirmation safeguard)
+            example:
+              virtual_cluster_id: vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee
+              virtual_cluster_name: my-cluster
+      responses:
+        '200':
+          description: Deletion successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyResponse'
+
+  # ── Virtual Cluster Credentials ───────────────────────────────
+  /api/v1/create_virtual_cluster_credentials:
+    post:
+      operationId: createVirtualClusterCredentials
+      summary: Create Virtual Cluster Credentials
+      description: Creates SASL/SCRAM credentials for connecting to a virtual cluster.
+      tags:
+        - Virtual Cluster Credentials
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - credentials_name
+                - is_cluster_superuser
+                - virtual_cluster_id
+              properties:
+                credentials_name:
+                  type: string
+                  description: Name for the credentials
+                is_cluster_superuser:
+                  type: boolean
+                  description: Whether these credentials have superuser privileges
+                virtual_cluster_id:
+                  type: string
+                  description: Target virtual cluster ID
+                imported_password:
+                  type: string
+                  description: Optional specific password (for migrations); auto-generated if omitted
+            example:
+              credentials_name: my-credentials
+              is_cluster_superuser: false
+              virtual_cluster_id: vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee
+      responses:
+        '200':
+          description: Created credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualClusterCredentials'
+
+  # ── API Keys ──────────────────────────────────────────────────
+  /api/v1/list_api_keys:
+    get:
+      operationId: listApiKeys
+      summary: List API Keys
+      description: Returns all API keys belonging to the same workspace as the authenticating key.
+      tags:
+        - API Keys
+      responses:
+        '200':
+          description: List of API keys
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  api_keys:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ApiKey'
+
+  /api/v1/create_api_key:
+    post:
+      operationId: createApiKey
+      summary: Create API Key
+      description: Creates a new API key with specified access grants.
+      tags:
+        - API Keys
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - access_grants
+              properties:
+                name:
+                  type: string
+                  description: Key name (alphanumeric and underscores only; gets akn_ prefix)
+                access_grants:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/AccessGrant'
+                  description: List of permission grants for this key
+                virtual_cluster_type:
+                  type: string
+                  description: Set to byoc_schema_registry for Schema Registry agent keys
+            example:
+              name: example_agent_key
+              access_grants:
+                - principal_kind: agent
+                  resource_kind: virtual_cluster
+                  resource_id: vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee
+      responses:
+        '200':
+          description: Created API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKey'
+
+  # ── Topics ────────────────────────────────────────────────────
+  /api/v1/list_topics:
+    post:
+      operationId: listTopics
+      summary: List Topics
+      description: Returns all topics in a virtual cluster.
+      tags:
+        - Topics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - virtual_cluster_id
+              properties:
+                virtual_cluster_id:
+                  type: string
+                  description: Target virtual cluster ID
+                include_recently_deleted:
+                  type: boolean
+                  description: Include recently soft-deleted topics in response
+            example:
+              virtual_cluster_id: vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee
+              include_recently_deleted: false
+      responses:
+        '200':
+          description: List of topics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  topics:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Topic'
+                  recently_deleted_topics:
+                    nullable: true
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Topic'
+
+  /api/v1/create_topic:
+    post:
+      operationId: createTopic
+      summary: Create Topic
+      description: Creates a new Kafka topic in the specified virtual cluster.
+      tags:
+        - Topics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - virtual_cluster_id
+                - topic_name
+                - partition_count
+              properties:
+                virtual_cluster_id:
+                  type: string
+                  description: Target virtual cluster ID
+                topic_name:
+                  type: string
+                  description: Name of the topic
+                partition_count:
+                  type: integer
+                  description: Number of partitions
+                configs:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  description: Optional Kafka topic configuration key-value pairs
+            example:
+              virtual_cluster_id: vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee
+              topic_name: my_topic
+              partition_count: 128
+              configs:
+                retention.ms: "604800000"
+      responses:
+        '200':
+          description: Topic created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyResponse'
+
+  /api/v1/delete_topic:
+    post:
+      operationId: deleteTopic
+      summary: Delete Topic
+      description: Deletes a topic from a virtual cluster. Supports soft-delete for recovery.
+      tags:
+        - Topics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - virtual_cluster_id
+                - topic_name
+              properties:
+                virtual_cluster_id:
+                  type: string
+                  description: Target virtual cluster ID
+                topic_name:
+                  type: string
+                  description: Name of the topic to delete
+                soft_delete:
+                  type: boolean
+                  description: If true, topic can be recovered; if false, permanently deleted
+            example:
+              virtual_cluster_id: vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee
+              topic_name: my_topic
+              soft_delete: true
+      responses:
+        '200':
+          description: Topic deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyResponse'
+
+  # ── ACLs ──────────────────────────────────────────────────────
+  /api/v1/virtual_clusters/acls/create:
+    post:
+      operationId: createAcl
+      summary: Create ACL
+      description: Creates a Kafka ACL rule for the specified virtual cluster.
+      tags:
+        - ACLs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - virtual_cluster_id
+                - acl
+              properties:
+                virtual_cluster_id:
+                  type: string
+                  description: Target virtual cluster ID
+                acl:
+                  $ref: '#/components/schemas/AclEntry'
+            example:
+              virtual_cluster_id: vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee
+              acl:
+                resource_type: TOPIC
+                resource_name: my_topic
+                pattern_type: LITERAL
+                principal: User:alice
+                host: '*'
+                operation: READ
+                permission_type: ALLOW
+      responses:
+        '200':
+          description: ACL created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  acl:
+                    $ref: '#/components/schemas/AclEntry'
+
+  # ── Pipelines ─────────────────────────────────────────────────
+  /api/v1/list_pipelines:
+    post:
+      operationId: listPipelines
+      summary: List Pipelines
+      description: Returns all pipelines in the specified virtual cluster.
+      tags:
+        - Pipelines
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - virtual_cluster_id
+              properties:
+                virtual_cluster_id:
+                  type: string
+                  description: Target virtual cluster ID
+            example:
+              virtual_cluster_id: vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee
+      responses:
+        '200':
+          description: List of pipelines
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pipelines:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Pipeline'
+
+  /api/v1/create_pipeline:
+    post:
+      operationId: createPipeline
+      summary: Create Pipeline
+      description: >
+        Creates a new pipeline in a virtual cluster. Default type is bento.
+        Orbit pipelines are limited to one per virtual cluster.
+        Schema Linking pipelines are limited to one per schema registry cluster.
+      tags:
+        - Pipelines
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - virtual_cluster_id
+                - pipeline_name
+              properties:
+                virtual_cluster_id:
+                  type: string
+                  description: Target virtual cluster ID
+                pipeline_name:
+                  type: string
+                  description: Name for the new pipeline
+                pipeline_type:
+                  type: string
+                  enum: [bento, orbit, schema_linking]
+                  description: Pipeline type (defaults to bento)
+            example:
+              virtual_cluster_id: vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee
+              pipeline_name: my-pipeline
+              pipeline_type: bento
+      responses:
+        '200':
+          description: Created pipeline details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pipeline_id:
+                    type: string
+                  pipeline_name:
+                    type: string
+                  pipeline_state:
+                    type: string
+                  pipeline_type:
+                    type: string
+                  pipeline_deployed_configuration_id:
+                    type: string
+
+  # ── Monitoring ────────────────────────────────────────────────
+  /api/v1/monitoring/describe_all_consumer_groups:
+    post:
+      operationId: describeAllConsumerGroups
+      summary: Describe All Consumer Groups
+      description: Returns detailed information about all consumer groups in a virtual cluster, including per-partition offset metrics.
+      tags:
+        - Monitoring
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - virtual_cluster_id
+              properties:
+                virtual_cluster_id:
+                  type: string
+                  description: Target virtual cluster ID
+            example:
+              virtual_cluster_id: vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee
+      responses:
+        '200':
+          description: Consumer group state information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state:
+                    type: object
+                    properties:
+                      groups:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ConsumerGroup'
+
+tags:
+  - name: Workspaces
+    description: Manage WarpStream workspaces (account-level)
+  - name: Virtual Clusters
+    description: Manage Kafka-compatible virtual clusters
+  - name: Virtual Cluster Credentials
+    description: Manage SASL/SCRAM credentials for virtual cluster access
+  - name: API Keys
+    description: Manage API keys and access grants
+  - name: Topics
+    description: Manage Kafka topics within virtual clusters
+  - name: ACLs
+    description: Manage Kafka ACL rules for access control
+  - name: Pipelines
+    description: Manage data pipelines (Bento, Orbit, Schema Linking)
+  - name: Monitoring
+    description: Monitor consumer groups and cluster health

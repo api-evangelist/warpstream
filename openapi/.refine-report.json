@@ -1,0 +1,28 @@
+{
+  "provider": "warpstream",
+  "sources": [
+    "warpstream-acls-api-openapi.yml",
+    "warpstream-api-keys-api-openapi.yml",
+    "warpstream-monitoring-api-openapi.yml",
+    "warpstream-pipelines-api-openapi.yml",
+    "warpstream-topics-api-openapi.yml",
+    "warpstream-virtual-cluster-credentials-api-openapi.yml",
+    "warpstream-virtual-clusters-api-openapi.yml",
+    "warpstream-workspaces-api-openapi.yml"
+  ],
+  "outputs": [
+    "warpstream-acls-api-openapi.yml",
+    "warpstream-api-keys-api-openapi.yml",
+    "warpstream-monitoring-api-openapi.yml",
+    "warpstream-pipelines-api-openapi.yml",
+    "warpstream-topics-api-openapi.yml",
+    "warpstream-virtual-cluster-credentials-api-openapi.yml",
+    "warpstream-virtual-clusters-api-openapi.yml",
+    "warpstream-workspaces-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
