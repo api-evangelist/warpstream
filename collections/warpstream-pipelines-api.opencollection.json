@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WarpStream Management ACLs Pipelines API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "warpstream-api-key",
+      "value": "{{warpstream-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pipelines",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Pipelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.warpstream.com/api/v1/list_pipelines",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns all pipelines in the specified virtual cluster."
+        },
+        {
+          "info": {
+            "name": "Create Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.warpstream.com/api/v1/create_pipeline",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new pipeline in a virtual cluster. Default type is bento. Orbit pipelines are limited to one per virtual cluster. Schema Linking pipelines are limited to one per schema registry cluster.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,156 @@
+{
+  "item": [
+    {
+      "id": "6b1aaf01-4919-4a25-b582-3857b6391b7d",
+      "name": "ACLs",
+      "description": {
+        "content": "Manage Kafka ACL rules for access control",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b3afb137-8e06-43c5-8346-57f5c20ad572",
+          "name": "Create ACL",
+          "request": {
+            "name": "Create ACL",
+            "description": {
+              "content": "Creates a Kafka ACL rule for the specified virtual cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "virtual_clusters",
+                "acls",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"virtual_cluster_id\": \"<string>\",\n  \"acl\": {\n    \"resource_type\": \"<string>\",\n    \"resource_name\": \"<string>\",\n    \"pattern_type\": \"<string>\",\n    \"principal\": \"<string>\",\n    \"host\": \"<string>\",\n    \"operation\": \"<string>\",\n    \"permission_type\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b6c04227-5161-477d-bab5-724e659831a5",
+              "name": "ACL created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "virtual_clusters",
+                    "acls",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "warpstream-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"virtual_cluster_id\": \"vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee\",\n  \"acl\": {\n    \"resource_type\": \"TOPIC\",\n    \"resource_name\": \"my_topic\",\n    \"pattern_type\": \"LITERAL\",\n    \"principal\": \"User:alice\",\n    \"host\": \"*\",\n    \"operation\": \"READ\",\n    \"permission_type\": \"ALLOW\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"acl\": {\n    \"resource_type\": \"<string>\",\n    \"resource_name\": \"<string>\",\n    \"pattern_type\": \"<string>\",\n    \"principal\": \"<string>\",\n    \"host\": \"<string>\",\n    \"operation\": \"<string>\",\n    \"permission_type\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.warpstream.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "warpstream-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cbdd7f7d-5827-4278-8c68-976519d9846a",
+    "name": "WarpStream Management ACLs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for programmatically managing all aspects of the WarpStream control plane, including workspaces, virtual clusters, topics, ACLs, pipelines, agent pools, and BYOC deployments. All requests are issued as POST or GET requests with JSON payloads and authenticated via the warpstream-api-key header using Application Keys, Agent Keys, or Account Keys depending on the scope of resources being managed.\n",
+      "type": "text/plain"
+    }
+  }
+}

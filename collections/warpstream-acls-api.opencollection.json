@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WarpStream Management ACLs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "warpstream-api-key",
+      "value": "{{warpstream-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ACLs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create ACL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.warpstream.com/api/v1/virtual_clusters/acls/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Kafka ACL rule for the specified virtual cluster."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

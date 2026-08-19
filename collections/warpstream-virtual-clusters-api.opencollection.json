@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WarpStream Management ACLs Virtual Clusters API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "warpstream-api-key",
+      "value": "{{warpstream-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Virtual Clusters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Virtual Clusters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.warpstream.com/api/v1/list_virtual_clusters"
+          },
+          "docs": "Returns all virtual clusters in the authenticated workspace."
+        },
+        {
+          "info": {
+            "name": "Create Virtual Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.warpstream.com/api/v1/create_virtual_cluster",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new virtual cluster. A new agent key is automatically created with every new virtual cluster.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Virtual Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.warpstream.com/api/v1/delete_virtual_cluster",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Permanently deletes a virtual cluster and all its data. Both virtual_cluster_id and virtual_cluster_name are required as a confirmation safeguard. This operation cannot be undone.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

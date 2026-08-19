@@ -1,0 +1,154 @@
+{
+  "item": [
+    {
+      "id": "ebac5c0d-0a9a-4e86-a342-2e36c870f0b9",
+      "name": "Monitoring",
+      "description": {
+        "content": "Monitor consumer groups and cluster health",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "20448e9e-6fb4-4473-87ab-da4a7c83c4bd",
+          "name": "Describe All Consumer Groups",
+          "request": {
+            "name": "Describe All Consumer Groups",
+            "description": {
+              "content": "Returns detailed information about all consumer groups in a virtual cluster, including per-partition offset metrics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "monitoring",
+                "describe_all_consumer_groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"virtual_cluster_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "88b9a995-961a-4ff9-baae-c02be3c66b35",
+              "name": "Consumer group state information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitoring",
+                    "describe_all_consumer_groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "warpstream-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"virtual_cluster_id\": \"vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"state\": {\n    \"groups\": [\n      {\n        \"name\": \"string\",\n        \"state\": \"string\",\n        \"protocol\": \"string\",\n        \"members\": [\n          {\n            \"id\": \"string\",\n            \"group_instance_id\": \"string\",\n            \"client_id\": \"string\",\n            \"client_host\": \"string\",\n            \"assignment\": {\n              \"assignments\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            }\n          },\n          {\n            \"id\": \"string\",\n            \"group_instance_id\": \"string\",\n            \"client_id\": \"string\",\n            \"client_host\": \"string\",\n            \"assignment\": {\n              \"assignments\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            }\n          }\n        ],\n        \"topics\": [\n          {\n            \"name\": \"string\",\n            \"partitions\": [\n              {\n                \"member_id\": \"string\",\n                \"partition\": 3358,\n                \"empty\": true,\n                \"min_offset\": 3927,\n                \"max_offset\": 1670,\n                \"committed_offset\": 5536\n              },\n              {\n                \"member_id\": \"string\",\n                \"partition\": 7224,\n                \"empty\": false,\n                \"min_offset\": 799,\n                \"max_offset\": 2408,\n                \"committed_offset\": 4078\n              }\n            ]\n          },\n          {\n            \"name\": \"string\",\n            \"partitions\": [\n              {\n                \"member_id\": \"string\",\n                \"partition\": 6210,\n                \"empty\": false,\n                \"min_offset\": 3315,\n                \"max_offset\": 7335,\n                \"committed_offset\": 6301\n              },\n              {\n                \"member_id\": \"string\",\n                \"partition\": 7982,\n                \"empty\": true,\n                \"min_offset\": 5792,\n                \"max_offset\": 6245,\n                \"committed_offset\": 6480\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"state\": \"string\",\n        \"protocol\": \"string\",\n        \"members\": [\n          {\n            \"id\": \"string\",\n            \"group_instance_id\": \"string\",\n            \"client_id\": \"string\",\n            \"client_host\": \"string\",\n            \"assignment\": {\n              \"assignments\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            }\n          },\n          {\n            \"id\": \"string\",\n            \"group_instance_id\": \"string\",\n            \"client_id\": \"string\",\n            \"client_host\": \"string\",\n            \"assignment\": {\n              \"assignments\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            }\n          }\n        ],\n        \"topics\": [\n          {\n            \"name\": \"string\",\n            \"partitions\": [\n              {\n                \"member_id\": \"string\",\n                \"partition\": 2464,\n                \"empty\": false,\n                \"min_offset\": 9665,\n                \"max_offset\": 7532,\n                \"committed_offset\": 7354\n              },\n              {\n                \"member_id\": \"string\",\n                \"partition\": 4549,\n                \"empty\": true,\n                \"min_offset\": 454,\n                \"max_offset\": 8748,\n                \"committed_offset\": 9184\n              }\n            ]\n          },\n          {\n            \"name\": \"string\",\n            \"partitions\": [\n              {\n                \"member_id\": \"string\",\n                \"partition\": 2737,\n                \"empty\": false,\n                \"min_offset\": 6691,\n                \"max_offset\": 4793,\n                \"committed_offset\": 5446\n              },\n              {\n                \"member_id\": \"string\",\n                \"partition\": 955,\n                \"empty\": true,\n                \"min_offset\": 4625,\n                \"max_offset\": 5839,\n                \"committed_offset\": 6898\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.warpstream.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "warpstream-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "29b72c01-51f7-44eb-a170-d120651c80ba",
+    "name": "WarpStream Management ACLs Monitoring API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for programmatically managing all aspects of the WarpStream control plane, including workspaces, virtual clusters, topics, ACLs, pipelines, agent pools, and BYOC deployments. All requests are issued as POST or GET requests with JSON payloads and authenticated via the warpstream-api-key header using Application Keys, Agent Keys, or Account Keys depending on the scope of resources being managed.\n",
+      "type": "text/plain"
+    }
+  }
+}

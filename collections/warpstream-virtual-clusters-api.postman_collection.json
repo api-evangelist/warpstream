@@ -1,0 +1,337 @@
+{
+  "item": [
+    {
+      "id": "ec018d1c-2942-4a31-b915-18bf931c19aa",
+      "name": "Virtual Clusters",
+      "description": {
+        "content": "Manage Kafka-compatible virtual clusters",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0dc0add7-9dd1-4843-872c-f5782969e271",
+          "name": "List Virtual Clusters",
+          "request": {
+            "name": "List Virtual Clusters",
+            "description": {
+              "content": "Returns all virtual clusters in the authenticated workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "list_virtual_clusters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "171ea4be-0874-48c3-9d1e-8debbc328537",
+              "name": "List of virtual clusters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "list_virtual_clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "warpstream-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"virtual_clusters\": [\n    {\n      \"id\": \"string\",\n      \"agent_pool_id\": \"string\",\n      \"agent_pool_name\": \"string\",\n      \"name\": \"string\",\n      \"created_at\": \"2022-03-04T02:41:26.047Z\",\n      \"type\": \"byoc_data_lake\",\n      \"region\": \"string\",\n      \"cloud_provider\": \"string\",\n      \"bootstrap_url\": \"string\",\n      \"agent_keys\": [\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"key\": \"string\",\n          \"created_at\": \"2012-06-27T03:01:19.954Z\",\n          \"access_grants\": [\n            {\n              \"principal_kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resource_kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resource_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"workspace_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"principal_kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resource_kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resource_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"workspace_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"key\": \"string\",\n          \"created_at\": \"1948-10-12T12:23:44.728Z\",\n          \"access_grants\": [\n            {\n              \"principal_kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resource_kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resource_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"workspace_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"principal_kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resource_kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resource_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"workspace_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"agent_pool_id\": \"string\",\n      \"agent_pool_name\": \"string\",\n      \"name\": \"string\",\n      \"created_at\": \"1994-10-01T06:26:18.729Z\",\n      \"type\": \"byoc_schema_registry\",\n      \"region\": \"string\",\n      \"cloud_provider\": \"string\",\n      \"bootstrap_url\": \"string\",\n      \"agent_keys\": [\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"key\": \"string\",\n          \"created_at\": \"2022-02-07T23:12:39.860Z\",\n          \"access_grants\": [\n            {\n              \"principal_kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resource_kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resource_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"workspace_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"principal_kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resource_kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resource_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"workspace_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"key\": \"string\",\n          \"created_at\": \"2021-11-17T03:46:39.789Z\",\n          \"access_grants\": [\n            {\n              \"principal_kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resource_kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resource_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"workspace_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"principal_kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resource_kind\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"resource_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"workspace_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f9066724-a993-4747-9451-a5a0c304d6f1",
+          "name": "Create Virtual Cluster",
+          "request": {
+            "name": "Create Virtual Cluster",
+            "description": {
+              "content": "Creates a new virtual cluster. A new agent key is automatically created with every new virtual cluster.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "create_virtual_cluster"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"virtual_cluster_name\": \"<string>\",\n  \"virtual_cluster_type\": \"<string>\",\n  \"virtual_cluster_region\": \"<string>\",\n  \"virtual_cluster_cloud_provider\": \"<string>\",\n  \"virtual_cluster_tier\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "47ce07f8-a310-48b1-85b4-f4e714aaad43",
+              "name": "Created virtual cluster details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "create_virtual_cluster"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "warpstream-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"virtual_cluster_name\": \"my-cluster\",\n  \"virtual_cluster_type\": \"byoc\",\n  \"virtual_cluster_region\": \"us-east-1\",\n  \"virtual_cluster_cloud_provider\": \"aws\",\n  \"virtual_cluster_tier\": \"dev\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"virtual_cluster_id\": \"string\",\n  \"virtual_cluster_name\": \"string\",\n  \"agent_pool_id\": \"string\",\n  \"agent_pool_name\": \"string\",\n  \"agent_key\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"key\": \"string\",\n    \"created_at\": \"2013-12-07T09:07:59.738Z\",\n    \"access_grants\": [\n      {\n        \"principal_kind\": \"application\",\n        \"resource_kind\": \"virtual_cluster\",\n        \"resource_id\": \"string\",\n        \"workspace_id\": \"string\"\n      },\n      {\n        \"principal_kind\": \"application\",\n        \"resource_kind\": \"virtual_cluster\",\n        \"resource_id\": \"string\",\n        \"workspace_id\": \"string\"\n      }\n    ]\n  },\n  \"bootstrap_url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "643eec81-0f39-47c9-b9b5-a1f5470c0a7b",
+          "name": "Delete Virtual Cluster",
+          "request": {
+            "name": "Delete Virtual Cluster",
+            "description": {
+              "content": "Permanently deletes a virtual cluster and all its data. Both virtual_cluster_id and virtual_cluster_name are required as a confirmation safeguard. This operation cannot be undone.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "delete_virtual_cluster"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"virtual_cluster_id\": \"<string>\",\n  \"virtual_cluster_name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7480e47f-80bd-4a52-893b-6bf616d48242",
+              "name": "Deletion successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "delete_virtual_cluster"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "warpstream-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"virtual_cluster_id\": \"vci_1d4930d7_8e6d_4ad9_b27a_654ed4aaa3ee\",\n  \"virtual_cluster_name\": \"my-cluster\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.warpstream.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "warpstream-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "90a3eda6-ee06-4444-a194-52e9640f5a08",
+    "name": "WarpStream Management ACLs Virtual Clusters API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for programmatically managing all aspects of the WarpStream control plane, including workspaces, virtual clusters, topics, ACLs, pipelines, agent pools, and BYOC deployments. All requests are issued as POST or GET requests with JSON payloads and authenticated via the warpstream-api-key header using Application Keys, Agent Keys, or Account Keys depending on the scope of resources being managed.\n",
+      "type": "text/plain"
+    }
+  }
+}

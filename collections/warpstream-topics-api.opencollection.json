@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WarpStream Management ACLs Topics API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "warpstream-api-key",
+      "value": "{{warpstream-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Topics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Topics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.warpstream.com/api/v1/list_topics",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns all topics in a virtual cluster."
+        },
+        {
+          "info": {
+            "name": "Create Topic",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.warpstream.com/api/v1/create_topic",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Kafka topic in the specified virtual cluster."
+        },
+        {
+          "info": {
+            "name": "Delete Topic",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.warpstream.com/api/v1/delete_topic",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a topic from a virtual cluster. Supports soft-delete for recovery."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
