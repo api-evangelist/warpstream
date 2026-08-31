@@ -5,17 +5,14 @@
       "source": "https://www.warpstream.com/blog/rss.xml",
       "feed_url": "https://www.warpstream.com/blog/rss.xml",
       "title": "",
-      "saved": 5,
+      "saved": 0,
       "method": "feed"
     },
     {
       "source": "https://www.linkedin.com/company/warpstream/",
-      "feed_url": "https://www.linkedin.com/company/warpstream/",
-      "title": "",
-      "saved": 0,
-      "method": "none"
+      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-08-22T20:20:02Z",
+  "fetched": "2026-08-30T22:33:40Z",
   "post_count": 61
 }
