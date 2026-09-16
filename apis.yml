@@ -52,20 +52,6 @@ tags:
   - Message Queue
   - Event Streaming
 apis:
-- aid: warpstream:warpstream-acls-api
-  name: WarpStream ACLs API
-  description: Manage Kafka ACL rules for access control
-  humanURL: https://docs.warpstream.com/warpstream/reference/api-reference
-  baseURL: https://api.warpstream.com
-  tags:
-  - ACL
-  tags_raw:
-  - ACLs
-  properties:
-  - type: OpenAPI
-    url: openapi/warpstream-acls-api-openapi.yml
-  - type: Documentation
-    url: https://docs.warpstream.com/warpstream/reference/api-reference
 - aid: warpstream:warpstream-api-keys-api
   name: WarpStream API Keys API
   description: Manage API keys and access grants
@@ -150,6 +136,18 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/warpstream-workspaces-api-openapi.yml
+  - type: Documentation
+    url: https://docs.warpstream.com/warpstream/reference/api-reference
+- aid: warpstream:warpstream-ac-ls-api
+  name: WarpStream AC Ls API
+  description: Manage Kafka ACL rules for access control
+  humanURL: https://docs.warpstream.com/warpstream/reference/api-reference
+  baseURL: https://api.warpstream.com
+  tags:
+  - AC Ls
+  properties:
+  - type: OpenAPI
+    url: openapi/warpstream-ac-ls-api-openapi.yml
   - type: Documentation
     url: https://docs.warpstream.com/warpstream/reference/api-reference
 common:
