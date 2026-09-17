@@ -138,16 +138,16 @@ apis:
     url: openapi/warpstream-workspaces-api-openapi.yml
   - type: Documentation
     url: https://docs.warpstream.com/warpstream/reference/api-reference
-- aid: warpstream:warpstream-ac-ls-api
+- aid: warpstream:warpstream-acls-api
   name: WarpStream AC Ls API
   description: Manage Kafka ACL rules for access control
   humanURL: https://docs.warpstream.com/warpstream/reference/api-reference
   baseURL: https://api.warpstream.com
   tags:
-  - AC Ls
+  - ACLs
   properties:
   - type: OpenAPI
-    url: openapi/warpstream-ac-ls-api-openapi.yml
+    url: openapi/warpstream-acls-api-openapi.yml
   - type: Documentation
     url: https://docs.warpstream.com/warpstream/reference/api-reference
 common:
