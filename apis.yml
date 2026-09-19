@@ -96,6 +96,8 @@ apis:
   humanURL: https://docs.warpstream.com/warpstream/reference/api-reference
   baseURL: https://api.warpstream.com
   tags:
+  - Topic
+  tags_raw:
   - Topics
   properties:
   - type: OpenAPI
@@ -132,6 +134,8 @@ apis:
   humanURL: https://docs.warpstream.com/warpstream/reference/api-reference
   baseURL: https://api.warpstream.com
   tags:
+  - Workspace
+  tags_raw:
   - Workspaces
   properties:
   - type: OpenAPI
@@ -144,6 +148,8 @@ apis:
   humanURL: https://docs.warpstream.com/warpstream/reference/api-reference
   baseURL: https://api.warpstream.com
   tags:
+  - ACL
+  tags_raw:
   - ACLs
   properties:
   - type: OpenAPI
