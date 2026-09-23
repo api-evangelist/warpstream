@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: WarpStream Management ACLs Workspaces API
-  description: 'REST API for programmatically managing all aspects of the WarpStream control plane, including workspaces, virtual clusters, topics, ACLs, pipelines, agent pools, and BYOC deployments. All requests are issued as POST or GET requests with JSON payloads and authenticated via the warpstream-api-key header using Application Keys, Agent Keys, or Account Keys depending on the scope of resources being managed.
-
-    '
+  title: WarpStream Management Workspaces API
+  description: REST API for programmatically managing all aspects of the WarpStream control plane, including workspaces, virtual clusters, topics, ACLs, pipelines, agent pools, and BYOC deployments. All requests are issued as POST or GET requests with JSON payloads and authenticated via the warpstream-api-key header using Application Keys, Agent Keys, or Account Keys depending on the scope of resources being managed.
   version: 1.0.0
   contact:
     url: https://docs.warpstream.com/warpstream/reference/api-reference
@@ -91,26 +89,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 creation timestamp
-    ApiKey:
-      type: object
-      properties:
-        id:
-          type: string
-          description: API key identifier
-        name:
-          type: string
-          description: Human-readable key name (prefixed with akn_)
-        key:
-          type: string
-          description: The actual secret key value
-        created_at:
-          type: string
-          format: date-time
-          description: ISO 8601 creation timestamp
-        access_grants:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccessGrant'
     AccessGrant:
       type: object
       description: Permission grant for an API key
@@ -133,6 +111,26 @@ components:
         workspace_id:
           type: string
           description: Workspace ID, required when using an account key
+    ApiKey:
+      type: object
+      properties:
+        id:
+          type: string
+          description: API key identifier
+        name:
+          type: string
+          description: Human-readable key name (prefixed with akn_)
+        key:
+          type: string
+          description: The actual secret key value
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 creation timestamp
+        access_grants:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessGrant'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

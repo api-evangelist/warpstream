@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: WarpStream Management ACLs API
-  description: 'REST API for programmatically managing all aspects of the WarpStream control plane, including workspaces, virtual clusters, topics, ACLs, pipelines, agent pools, and BYOC deployments. All requests are issued as POST or GET requests with JSON payloads and authenticated via the warpstream-api-key header using Application Keys, Agent Keys, or Account Keys depending on the scope of resources being managed.
-
-    '
+  title: WarpStream Management AC Ls API
+  description: REST API for programmatically managing all aspects of the WarpStream control plane, including workspaces, virtual clusters, topics, ACLs, pipelines, agent pools, and BYOC deployments. All requests are issued as POST or GET requests with JSON payloads and authenticated via the warpstream-api-key header using Application Keys, Agent Keys, or Account Keys depending on the scope of resources being managed.
   version: 1.0.0
   contact:
     url: https://docs.warpstream.com/warpstream/reference/api-reference
