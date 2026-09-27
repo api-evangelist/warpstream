@@ -76,6 +76,26 @@ paths:
                     $ref: '#/components/schemas/ApiKey'
 components:
   schemas:
+    ApiKey:
+      type: object
+      properties:
+        id:
+          type: string
+          description: API key identifier
+        name:
+          type: string
+          description: Human-readable key name (prefixed with akn_)
+        key:
+          type: string
+          description: The actual secret key value
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 creation timestamp
+        access_grants:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessGrant'
     Workspace:
       type: object
       properties:
@@ -111,26 +131,6 @@ components:
         workspace_id:
           type: string
           description: Workspace ID, required when using an account key
-    ApiKey:
-      type: object
-      properties:
-        id:
-          type: string
-          description: API key identifier
-        name:
-          type: string
-          description: Human-readable key name (prefixed with akn_)
-        key:
-          type: string
-          description: The actual secret key value
-        created_at:
-          type: string
-          format: date-time
-          description: ISO 8601 creation timestamp
-        access_grants:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccessGrant'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

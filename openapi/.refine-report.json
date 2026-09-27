@@ -13,19 +13,16 @@
     "warpstream-virtual-clusters-api-openapi.yml",
     "warpstream-workspaces-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "warpstream-management-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "superseded outputs removed: warpstream-ac-ls-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 8 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
-    "warpstream-ac-ls-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "warpstream-acls-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "warpstream-api-keys-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "warpstream-monitoring-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "warpstream-pipelines-api-openapi.yml: previously refined output, superseded by openapi/_original/",
