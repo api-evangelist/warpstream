@@ -76,6 +76,28 @@ paths:
                     $ref: '#/components/schemas/ApiKey'
 components:
   schemas:
+    AccessGrant:
+      type: object
+      description: Permission grant for an API key
+      properties:
+        principal_kind:
+          type: string
+          enum:
+          - application
+          - agent
+          description: Type of principal
+        resource_kind:
+          type: string
+          enum:
+          - '*'
+          - virtual_cluster
+          description: Kind of resource the grant applies to
+        resource_id:
+          type: string
+          description: Specific resource ID or '*' for all resources
+        workspace_id:
+          type: string
+          description: Workspace ID, required when using an account key
     ApiKey:
       type: object
       properties:
@@ -109,28 +131,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 creation timestamp
-    AccessGrant:
-      type: object
-      description: Permission grant for an API key
-      properties:
-        principal_kind:
-          type: string
-          enum:
-          - application
-          - agent
-          description: Type of principal
-        resource_kind:
-          type: string
-          enum:
-          - '*'
-          - virtual_cluster
-          description: Kind of resource the grant applies to
-        resource_id:
-          type: string
-          description: Specific resource ID or '*' for all resources
-        workspace_id:
-          type: string
-          description: Workspace ID, required when using an account key
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

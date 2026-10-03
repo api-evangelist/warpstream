@@ -55,31 +55,6 @@ paths:
                           $ref: '#/components/schemas/ConsumerGroup'
 components:
   schemas:
-    ConsumerGroupMember:
-      type: object
-      properties:
-        id:
-          type: string
-        group_instance_id:
-          type: string
-        client_id:
-          type: string
-        client_host:
-          type: string
-        assignment:
-          type: object
-          properties:
-            assignments:
-              type: array
-              items:
-                type: object
-                properties:
-                  topic_name:
-                    type: string
-                  partitions:
-                    type: array
-                    items:
-                      type: integer
     ConsumerGroup:
       type: object
       properties:
@@ -116,6 +91,31 @@ components:
                     max_offset:
                       type: integer
                     committed_offset:
+                      type: integer
+    ConsumerGroupMember:
+      type: object
+      properties:
+        id:
+          type: string
+        group_instance_id:
+          type: string
+        client_id:
+          type: string
+        client_host:
+          type: string
+        assignment:
+          type: object
+          properties:
+            assignments:
+              type: array
+              items:
+                type: object
+                properties:
+                  topic_name:
+                    type: string
+                  partitions:
+                    type: array
+                    items:
                       type: integer
   securitySchemes:
     ApiKeyAuth:

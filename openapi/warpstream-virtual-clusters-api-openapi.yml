@@ -136,6 +136,28 @@ paths:
                 $ref: '#/components/schemas/EmptyResponse'
 components:
   schemas:
+    AccessGrant:
+      type: object
+      description: Permission grant for an API key
+      properties:
+        principal_kind:
+          type: string
+          enum:
+          - application
+          - agent
+          description: Type of principal
+        resource_kind:
+          type: string
+          enum:
+          - '*'
+          - virtual_cluster
+          description: Kind of resource the grant applies to
+        resource_id:
+          type: string
+          description: Specific resource ID or '*' for all resources
+        workspace_id:
+          type: string
+          description: Workspace ID, required when using an account key
     EmptyResponse:
       type: object
       description: Empty JSON object indicating success
@@ -160,28 +182,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AccessGrant'
-    AccessGrant:
-      type: object
-      description: Permission grant for an API key
-      properties:
-        principal_kind:
-          type: string
-          enum:
-          - application
-          - agent
-          description: Type of principal
-        resource_kind:
-          type: string
-          enum:
-          - '*'
-          - virtual_cluster
-          description: Kind of resource the grant applies to
-        resource_id:
-          type: string
-          description: Specific resource ID or '*' for all resources
-        workspace_id:
-          type: string
-          description: Workspace ID, required when using an account key
     VirtualCluster:
       type: object
       properties:

@@ -144,6 +144,10 @@ paths:
                 $ref: '#/components/schemas/EmptyResponse'
 components:
   schemas:
+    EmptyResponse:
+      type: object
+      description: Empty JSON object indicating success
+      additionalProperties: false
     Topic:
       type: object
       properties:
@@ -165,10 +169,6 @@ components:
         uncompressed_size_hint:
           type: string
           description: Approximate uncompressed size
-    EmptyResponse:
-      type: object
-      description: Empty JSON object indicating success
-      additionalProperties: false
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
