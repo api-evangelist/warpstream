@@ -136,52 +136,6 @@ paths:
                 $ref: '#/components/schemas/EmptyResponse'
 components:
   schemas:
-    AccessGrant:
-      type: object
-      description: Permission grant for an API key
-      properties:
-        principal_kind:
-          type: string
-          enum:
-          - application
-          - agent
-          description: Type of principal
-        resource_kind:
-          type: string
-          enum:
-          - '*'
-          - virtual_cluster
-          description: Kind of resource the grant applies to
-        resource_id:
-          type: string
-          description: Specific resource ID or '*' for all resources
-        workspace_id:
-          type: string
-          description: Workspace ID, required when using an account key
-    EmptyResponse:
-      type: object
-      description: Empty JSON object indicating success
-      additionalProperties: false
-    ApiKey:
-      type: object
-      properties:
-        id:
-          type: string
-          description: API key identifier
-        name:
-          type: string
-          description: Human-readable key name (prefixed with akn_)
-        key:
-          type: string
-          description: The actual secret key value
-        created_at:
-          type: string
-          format: date-time
-          description: ISO 8601 creation timestamp
-        access_grants:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccessGrant'
     VirtualCluster:
       type: object
       properties:
@@ -221,6 +175,52 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ApiKey'
+    AccessGrant:
+      type: object
+      description: Permission grant for an API key
+      properties:
+        principal_kind:
+          type: string
+          enum:
+          - application
+          - agent
+          description: Type of principal
+        resource_kind:
+          type: string
+          enum:
+          - '*'
+          - virtual_cluster
+          description: Kind of resource the grant applies to
+        resource_id:
+          type: string
+          description: Specific resource ID or '*' for all resources
+        workspace_id:
+          type: string
+          description: Workspace ID, required when using an account key
+    ApiKey:
+      type: object
+      properties:
+        id:
+          type: string
+          description: API key identifier
+        name:
+          type: string
+          description: Human-readable key name (prefixed with akn_)
+        key:
+          type: string
+          description: The actual secret key value
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 creation timestamp
+        access_grants:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessGrant'
+    EmptyResponse:
+      type: object
+      description: Empty JSON object indicating success
+      additionalProperties: false
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
