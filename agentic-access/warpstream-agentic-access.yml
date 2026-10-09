@@ -1,22 +1,41 @@
-generated: '2026-07-15'
+generated: '2026-09-23'
 method: generated
-source: openapi/warpstream-management-openapi.yml
+source: openapi/warpstream-acls-api-openapi.yml, openapi/warpstream-api-keys-api-openapi.yml,
+  openapi/warpstream-monitoring-api-openapi.yml, openapi/warpstream-pipelines-api-openapi.yml,
+  openapi/warpstream-topics-api-openapi.yml, openapi/warpstream-virtual-cluster-credentials-api-openapi.yml,
+  openapi/warpstream-virtual-clusters-api-openapi.yml, openapi/warpstream-workspaces-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 15
   by_action_class:
-    connected: 3
-    acting: 12
+    acting: 10
+    connected: 5
   by_consequence:
-    read: 3
-    write: 12
+    write: 10
+    read: 5
   human_in_the_loop_required: 0
 operations:
-- path: /api/v1/list_workspaces
+- path: /api/v1/virtual_clusters/acls/create
+  method: post
+  operationId: createAcl
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/list_api_keys
   method: get
-  operationId: listWorkspaces
+  operationId: listApiKeys
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -24,9 +43,109 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /api/v1/create_workspace
+- path: /api/v1/create_api_key
   method: post
-  operationId: createWorkspace
+  operationId: createApiKey
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/monitoring/describe_all_consumer_groups
+  method: post
+  operationId: describeAllConsumerGroups
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/list_pipelines
+  method: post
+  operationId: listPipelines
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/create_pipeline
+  method: post
+  operationId: createPipeline
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/list_topics
+  method: post
+  operationId: listTopics
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/create_topic
+  method: post
+  operationId: createTopic
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/delete_topic
+  method: post
+  operationId: deleteTopic
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/create_virtual_cluster_credentials
+  method: post
+  operationId: createVirtualClusterCredentials
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -82,25 +201,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/v1/create_virtual_cluster_credentials
-  method: post
-  operationId: createVirtualClusterCredentials
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/list_api_keys
+- path: /api/v1/list_workspaces
   method: get
-  operationId: listApiKeys
+  operationId: listWorkspaces
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -108,121 +211,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /api/v1/create_api_key
+- path: /api/v1/create_workspace
   method: post
-  operationId: createApiKey
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/list_topics
-  method: post
-  operationId: listTopics
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/create_topic
-  method: post
-  operationId: createTopic
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/delete_topic
-  method: post
-  operationId: deleteTopic
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/virtual_clusters/acls/create
-  method: post
-  operationId: createAcl
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/list_pipelines
-  method: post
-  operationId: listPipelines
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/create_pipeline
-  method: post
-  operationId: createPipeline
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/monitoring/describe_all_consumer_groups
-  method: post
-  operationId: describeAllConsumerGroups
+  operationId: createWorkspace
   x-agentic-access:
     action-class: acting
     consequence: write
