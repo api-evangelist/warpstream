@@ -1,0 +1,45 @@
+edges:
+- partner_name: Apache Kafka
+  partner: apache-kafka
+  partner_match: shape-anchor
+  channel: provider-built
+  relationship: compatible
+  direction: provider-built
+  shape: kafka-protocol
+  type: docs
+  degree: declared-subset
+  evidence: https://docs.warpstream.com/warpstream/reference/protocol-and-feature-support
+  evidence_kind: own-docs
+  evidence_file: https://github.com/api-evangelist/warpstream/blob/main/evidence/compatibility/warpstream-kafka-protocol-1.md
+  quote: The current implementation of the Apache Kafka protocol in WarpStream supports the basic ability to create
+    topics, delete topics, produce data, consume data, and use consumer groups to load balance consumers and track
+    offsets. Specifically,
+  supported_operations:
+  - AlterConfigs
+  - ApiVersions
+  - CreatePartitions
+  - CreateTopics
+  - DeleteTopics
+  - DescribeCluster
+  - DescribeConfigs
+  - DescribeGroups
+  - Fetch
+  - FindCoordinator
+  - Heartbeat
+  - JoinGroup
+  - KIP-714
+  - LeaveGroup
+  - ListGroups
+  - ListOffsets
+  - Metadata
+  - OffsetCommit
+  - OffsetFetch
+  - Produce
+  - SyncGroup
+  - Transactions
+  unsupported_operations: []
+  supported_share: 0.537
+  detected_by: sweep-shape-compat.py
+  first_seen: '2026-10-13'
+generated: '2026-10-13'
+method: searched

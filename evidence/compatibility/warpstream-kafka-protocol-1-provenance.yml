@@ -1,0 +1,14 @@
+fetched: '2026-10-13'
+method: fetched
+source: https://docs.warpstream.com/warpstream/reference/protocol-and-feature-support
+page: https://docs.warpstream.com/warpstream/reference/protocol-and-feature-support
+file: warpstream-kafka-protocol-1.md
+bytes: 7347
+sha256: 02fe3654ef4db98a29c4a420bbc4cdee12da350b035c72a5ccd70beba35fe43f
+anchor: apache-kafka
+shape: kafka-protocol
+classification: declares-compatibility
+quote: The current implementation of the Apache Kafka protocol in WarpStream supports the basic ability to create
+  topics, delete topics, produce data, consume data, and use consumer groups to load balance consumers and track
+  offsets. Specifically, the following Apache Kafka messages are currently supported
+note: text extracted from the provider's own page (tags stripped), saved for evidence
