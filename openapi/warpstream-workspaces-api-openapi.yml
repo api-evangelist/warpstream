@@ -76,6 +76,19 @@ paths:
                     $ref: '#/components/schemas/ApiKey'
 components:
   schemas:
+    Workspace:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Workspace identifier
+        name:
+          type: string
+          description: Workspace name
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 creation timestamp
     AccessGrant:
       type: object
       description: Permission grant for an API key
@@ -118,19 +131,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AccessGrant'
-    Workspace:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Workspace identifier
-        name:
-          type: string
-          description: Workspace name
-        created_at:
-          type: string
-          format: date-time
-          description: ISO 8601 creation timestamp
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
