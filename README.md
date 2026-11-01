@@ -1,4 +1,4 @@
-# WarpStream (warpstream)
+# WarpStream
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,59 +64,166 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-WarpStream is a diskless, Apache Kafka-compatible data streaming platform built directly on top of cloud object storage such as S3, GCP, and Azure. It eliminates local disks, broker rebalancing, and ZooKeeper by delivering Kafka compatibility through a single, stateless Go binary deployed as auto-scaling agents in customer VPCs. WarpStream offers a REST management API for programmatically controlling workspaces, virtual clusters, topics, ACLs, pipelines, agent pools, and BYOC deployments. The platform supports Exactly Once Semantics, transactions, a built-in Schema Registry, and Tableflow for streaming data into Iceberg tables, with pricing based on compute minutes and uncompressed data written and stored.
+WarpStream is a diskless, Apache Kafka-compatible data streaming platform built directly on top of cloud object storage such as S3, GCP, and Azure. It eliminates the need for local disks, brokers to rebalance, and ZooKeeper, delivering Kafka compatibility through a single, stateless Go binary deployed as auto-scaling agents in customer VPCs. WarpStream offers a REST management API for programmatically controlling workspaces, virtual clusters, topics, ACLs, pipelines, agent pools, and BYOC deployments. The platform supports Exactly Once Semantics, transactions, a built-in Schema Registry, and Tableflow for streaming data into Iceberg tables, with pricing based purely on compute minutes and uncompressed data written and stored.
 
-- APIs.json: https://raw.githubusercontent.com/api-evangelist/warpstream/refs/heads/main/apis.yml
-- Naftiko: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=warpstream-api-evangelist&utm_content=repo
+**Areas:** Kafka · Streaming · Serverless · Object Storage · BYOC · Data Streaming · Apache Kafka · Message Queue · Event Streaming
 
-## Tags
+## WarpStream on APIs.io
 
-- Kafka
-- Streaming
-- Serverless
-- Object Storage
-- BYOC
-- Data Streaming
-- Apache Kafka
-- Message Queue
-- Event Streaming
+Everything profiled for WarpStream is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/warpstream/](https://apis.io/providers/warpstream/)** — or go straight to one of the APIs or properties below.
 
-## APIs
+### APIs (8)
 
-| Name | Description | Docs |
-|------|-------------|------|
-| WarpStream Management API | REST API for managing clusters, virtual clusters, agent pools, topics, ACLs, pipelines, and BYOC deployments via POST requests authenticated with the warpstream-api-key header | [Docs](https://docs.warpstream.com/warpstream/reference/api-reference) |
+- [WarpStream API Keys API](https://apis.io/apis/warpstream/warpstream-api-keys-api/) — Manage API keys and access grants
+- [WarpStream Monitoring API](https://apis.io/apis/warpstream/warpstream-monitoring-api/) — Monitor consumer groups and cluster health
+- [WarpStream Pipelines API](https://apis.io/apis/warpstream/warpstream-pipelines-api/) — Manage data pipelines (Bento, Orbit, Schema Linking)
+- [WarpStream Topics API](https://apis.io/apis/warpstream/warpstream-topics-api/) — Manage Kafka topics within virtual clusters
+- [WarpStream Virtual Cluster Credentials API](https://apis.io/apis/warpstream/warpstream-virtual-cluster-credentials-api/) — Manage SASL/SCRAM credentials for virtual cluster access
+- [WarpStream Virtual Clusters API](https://apis.io/apis/warpstream/warpstream-virtual-clusters-api/) — Manage Kafka-compatible virtual clusters
+- [WarpStream Workspaces API](https://apis.io/apis/warpstream/warpstream-workspaces-api/) — Manage WarpStream workspaces (account-level)
+- [WarpStream AC Ls API](https://apis.io/apis/warpstream/warpstream-acls-api/) — Manage Kafka ACL rules for access control
 
-## Plans / Rate Limits / FinOps
+### Published properties
 
-| Resource | File |
-|----------|------|
-| Plans & Pricing | [plans/warpstream-plans-pricing.yml](plans/warpstream-plans-pricing.yml) |
-| Rate Limits | [rate-limits/warpstream-rate-limits.yml](rate-limits/warpstream-rate-limits.yml) |
-| FinOps | [finops/warpstream-finops.yml](finops/warpstream-finops.yml) |
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-**Cluster Tiers:** Dev ($100/mo, 4,096 partitions), Fundamentals ($500/mo, 99.9% SLA, 16,384 partitions), Pro ($1,500/mo, 99.99% SLA, 50,000 partitions), Enterprise (custom, 99.999% SLA, 200,000+ partitions). Usage billed in 15-minute intervals with scale-to-zero — idle clusters are free. New accounts receive $400 in non-expiring free credits.
+#### Agentic access (1)
 
-## Timestamps
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Created: 2026-06-13
-- Modified: 2026-06-13
+- [Warpstream Agentic Access](https://apis.io/agentic-access/warpstream/warpstream-agentic-access/)
 
-## Common
+#### JSON Schema (3)
 
-| Type | URL |
-|------|-----|
-| Website | https://www.warpstream.com/ |
-| Documentation | https://docs.warpstream.com/warpstream |
-| GitHub Org | https://github.com/warpstreamlabs |
-| LinkedIn | https://www.linkedin.com/company/warpstream/ |
-| Blog | https://www.warpstream.com/blog |
-| Pricing | https://www.warpstream.com/pricing |
-| Status Page | https://status.warpstream.com/ |
-| X / Twitter | https://twitter.com/warpstream_labs |
+The data models the API reads and writes.
 
-## Maintainers
+- [ApiKey](https://apis.io/schemas/warpstream/api-key/)
+- [Topic](https://apis.io/schemas/warpstream/topic/)
+- [VirtualCluster](https://apis.io/schemas/warpstream/virtual-cluster/)
 
-| Name | Email |
-|------|-------|
-| Kin Lane | kin@apievangelist.com |
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Warpstream Context](https://apis.io/jsonld/warpstream/warpstream-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Warpstream Vocabulary](https://apis.io/vocabularies/warpstream/warpstream-vocabulary/)
+
+#### Examples (2)
+
+Example requests and responses.
+
+- [Create Topic](https://apis.io/examples/warpstream/create-topic/)
+- [Create Virtual Cluster](https://apis.io/examples/warpstream/create-virtual-cluster/)
+
+#### Collections (8)
+
+Postman and Open Collection request collections.
+
+- [WarpStream Management ACLs API](https://apis.io/collections/warpstream/open-warpstream-acls-api/)
+- [WarpStream Management ACLs API Keys API](https://apis.io/collections/warpstream/open-warpstream-api-keys-api/)
+- [WarpStream Management ACLs Monitoring API](https://apis.io/collections/warpstream/open-warpstream-monitoring-api/)
+- [WarpStream Management ACLs Pipelines API](https://apis.io/collections/warpstream/open-warpstream-pipelines-api/)
+- [WarpStream Management ACLs Topics API](https://apis.io/collections/warpstream/open-warpstream-topics-api/)
+- [WarpStream Management ACLs Virtual Cluster Credentials API](https://apis.io/collections/warpstream/open-warpstream-virtual-cluster-credentials-api/)
+- [WarpStream Management ACLs Virtual Clusters API](https://apis.io/collections/warpstream/open-warpstream-virtual-clusters-api/)
+- [WarpStream Management ACLs Workspaces API](https://apis.io/collections/warpstream/open-warpstream-workspaces-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [WarpStream — jsonschema rules](https://apis.io/rules/warpstream/warpstream-jsonschema-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Warpstream Authentication](https://apis.io/security/warpstream/warpstream-authentication/)
+- [Warpstream Domain Security](https://apis.io/security/warpstream/warpstream-domain-security/)
+- [Warpstream Trust Center](https://apis.io/security/warpstream/warpstream-trust-center/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Warpstream Plans Pricing](https://apis.io/plans/warpstream/warpstream-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Warpstream Rate Limits](https://apis.io/rate-limits/warpstream/warpstream-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Warpstream Finops](https://apis.io/finops/warpstream/warpstream-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.warpstream.com/)
+- [Documentation](https://docs.warpstream.com/warpstream)
+- [Pricing](https://www.warpstream.com/pricing)
+- [Blog](https://www.warpstream.com/blog)
+- [Status](https://status.warpstream.com/)
+
+## API Evangelist rating
+
+**Kin Score 37.8** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 57.3 |
+| Contract governance | 23.5 |
+| Operational transparency | 28.9 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 26.3 |
+
+**Agent readiness 22.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 21.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/warpstream/](https://apis.io/providers/warpstream/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for WarpStream: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/warpstream/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
